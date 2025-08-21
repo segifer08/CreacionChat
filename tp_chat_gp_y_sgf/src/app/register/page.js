@@ -1,31 +1,32 @@
 "use client"
 
+
 import Button from "@/components/Button"
 import Form from "@/components/Form"
 import { useRouter } from "next/navigation"
 
 
-export default function Login(){
+export default function Register(){
     const router = useRouter()
 
-    function moverse(){
-        router.replace("../register")
-    }
-    
-    function loguear(){
+    function registrar(){
         
+    }
+
+    function moverse(){
+        router.replace("../login")
     }
 
     return(<>
     <Form
-        texth1={"Iniciar Sesión"}
-        textb={"Inciar Sesión"}
-        onClick={loguear}
+        texth1={"Registrarse"}
+        textb={"Registrarse"}
+        onClick={registrar}
         type1={"text"}
         type2={"password"}
     ></Form>
     <br></br>
     <br></br>
-    <Button text={"No tengo cuenta"} onClick={moverse}></Button>
+    <Button text={"Ya tengo cuenta"} onClick={moverse}></Button>
     </>)
 }
