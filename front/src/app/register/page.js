@@ -30,7 +30,10 @@ export default function Register(){
             /*fetch("http://localhost:4000/registro")
             .then(response => response.json())
             .then(result =>{
+                //if 
                 console.log(result)
+                localStorage.setItem("loguedUser", result.log[0])
+                router.replace("../listaC")
             })
             .then router.replace("../listaC")*/
            return console.log("Verificacion epica")

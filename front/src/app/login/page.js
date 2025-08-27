@@ -29,12 +29,20 @@ export default function Login(){
     
     function loguear(){
         if (valorM != "" && valorC != ""){
-            /*fetch("http://localhost:4000/login")
+            /*fetch("http://localhost:4000/login",
+            {
+                method: "POST",
+                body:
+            }
+            )
             .then(response => response.json())
             .then(result =>{
+                //if
                 console.log(result)
-            })
-            .then router.replace("../listaC")*/
+                localStorage.setItem("loguedUser", result.log[0])
+                router.replace("../listaC")
+            })*/
+
            return console.log("Peron x Milei")
         }
         return alert("Faltan Datos")
