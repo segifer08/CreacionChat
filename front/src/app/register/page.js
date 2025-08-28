@@ -4,18 +4,20 @@
 import Button from "@/components/Button"
 import Form from "@/components/Form"
 import { useRouter } from "next/navigation"
+
 import { useEffect, useState } from "react"
+
 
 
 export default function Register(){
     const router = useRouter()
-
     const [valorM, setValorM] = useState("")
     const [valorC, setValorC] = useState("")
 
     function moverse(){
         router.replace("../login")
     }
+
 
     function corrobao1(event){
         setValorM(event.target.value)
