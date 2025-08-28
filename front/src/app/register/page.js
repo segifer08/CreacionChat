@@ -29,7 +29,14 @@ export default function Register(){
 
     function registrar(){
         if (valorM != "" && valorC != ""){
-            /*fetch("http://localhost:4000/registro")
+            /*fetch("http://localhost:4000/registro" {
+            {
+            method:"POST", 
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(datos)
+            })
             .then(response => response.json())
             .then(result =>{
                 //if 

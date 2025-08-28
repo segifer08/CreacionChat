@@ -1,10 +1,12 @@
 "use client"
 
-export default function Contacto(props) {
+export default function ContactoR(props) {
     return (
         <>
-            <img src={props.url}></img>
-            <h3>{props.mail}</h3>
+            <div onClick={props.onClick}>
+                <img src={props.url}></img>
+                <h3>{props.mail}</h3>
+            </div>
         </>
     )
 
