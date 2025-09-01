@@ -26,7 +26,7 @@ app.post('/login',async function(req,res){
         console.log(req.body);
         let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Mail = "${req.body.mail}" AND Contra = "${req.body.password}"; `)
         if(vector.length != 0){
-            let loguedUser = await realizarQuery(`SELECT ID FROM Usuarios WHERE Mail = "${req.body.mail}" AND Contra = "${req.body.password}"; `)
+            let loguedUser = await realizarQuery(`SELECT Id_usuario FROM Usuarios WHERE Mail = "${req.body.mail}" AND Contra = "${req.body.password}"; `)
             res.send({validar:true, log:loguedUser})
         }
         else{
@@ -41,10 +41,11 @@ app.post('/login',async function(req,res){
 app.post('/registro',async function(req,res){
     try {
         console.log(req.body);
-        let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Mail = "${req.body.mail}", Contra = "${req.body.password}" `)
+        let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Mail = "${req.body.mail}" AND Contra = "${req.body.password}" `)
         if(vector.length == 0){
             await realizarQuery(`INSERT INTO Usuarios (Mail,Contra) VALUES ("${req.body.mail}", "${req.body.password}");`);
-            let loguedUser = await realizarQuery(`SELECT * FROM Usuarios WHERE Mail = "${req.body.mail}", Contra = "${req.body.password}" `)
+            let loguedUser = await realizarQuery(`SELECT Id_usuario FROM Usuarios WHERE Mail = "${req.body.mail}" AND Contra = "${req.body.password}" `)
+            console.log(loguedUser)
             res.send({validar:true, log:loguedUser});
         }
         else{

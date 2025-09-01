@@ -1,6 +1,8 @@
 "use client"
 
-
+/* Usuario profes
+mail: profes@mail.com
+contra: profes */
 import Button from "@/components/Button"
 import Form from "@/components/Form"
 import { useRouter } from "next/navigation"
@@ -21,34 +23,48 @@ export default function Register(){
 
     function corrobao1(event){
         setValorM(event.target.value)
+        console.log(valorM)
     }
 
     function corrobao2(event){
         setValorC(event.target.value)
+        console.log(valorC)
     }
 
-    function registrar(){
+    function registrar(datos){
         if (valorM != "" && valorC != ""){
-            /*fetch("http://localhost:4000/registro" {
-            {
-            method:"POST", 
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(datos)
+            fetch("http://localhost:4000/registro",{
+                method:"POST", 
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(datos)
             })
             .then(response => response.json())
             .then(result =>{
-                //if 
                 console.log(result)
-                localStorage.setItem("loguedUser", result.log[0])
-                router.replace("../listaC")
+                if (result.validar == true){
+                    localStorage.setItem("loguedUser", result.log[0].Id_usuario)
+                    alert("Funca?")
+                    router.replace("../listaC")
+                } else {
+                    return alert("La Cagaste")
+                }
             })
-            .then router.replace("../listaC")*/
-           return console.log("Verificacion epica")
         }
-        return alert("Faltan Datos")
     }
+
+    function registra() {
+    console.log(valorM)
+    console.log(valorC)
+    if(valorM == undefined || valorC == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        mail: valorM,
+        password: valorC
+    }
+    registrar(datos)}
 
     return(<>
     <Form
@@ -58,7 +74,7 @@ export default function Register(){
         onChange2={corrobao2}
         texth1={"Registrarse"}
         textb={"Crear usuario"}
-        onClick={registrar}
+        onClick={registra}
         type1={"text"}
         type2={"password"}
     ></Form>
