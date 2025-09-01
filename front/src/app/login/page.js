@@ -1,6 +1,10 @@
 "use client"
 
-/*import styles from "@/app/login/login.module.css"*/
+/*import styles from "@/app/login/login.module.css"
+Usuario profes
+mail: profes@mail.com
+contra: profes
+*/
 import Button from "@/components/Button"
 import Form from "@/components/Form"
 import { useRouter } from "next/navigation"
@@ -27,9 +31,9 @@ export default function Login(){
         setValorC(event.target.value)
     }
     
-    function loguear(){
+    function loguear(datos){
         if (valorM != "" && valorC != ""){
-            /*fetch("http://localhost:4000/login",
+            fetch("http://localhost:4000/login",
             {
                 method:"POST", 
                 headers: {
@@ -39,16 +43,28 @@ export default function Login(){
             })
             .then(response => response.json())
             .then(result =>{
-                //if
-                console.log(result)
-                localStorage.setItem("loguedUser", result.log[0])
-                router.replace("../listaC")
-            })*/
-
-           return console.log("Peron x Milei")
+                console.log(result.log)
+                console.log(result.log[0].Id_usuario)
+                if (result.validar == true){
+                    localStorage.setItem("loguedUser", result.log[0].Id_usuario)
+                    alert("Funca?")
+                    router.replace("../listaC")
+                } else {
+                    return alert("La Cagaste")
+                }}
+            )
         }
-        return alert("Faltan Datos")
     }
+
+    function loguea() {
+    if(valorM == undefined || valorC == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        mail: valorM,
+        password: valorC
+    }
+    loguear(datos)}
 
     useEffect(()=>{
         console.log(usuarios)
@@ -62,7 +78,7 @@ export default function Login(){
         onChange2={corrobao2}
         texth1={"Iniciar Sesión"}
         textb={"Inciar Sesión"}
-        onClick={loguear}
+        onClick={loguea}
         type1={"text"}
         type2={"password"}
     ></Form>
