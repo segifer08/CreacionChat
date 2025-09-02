@@ -43,12 +43,10 @@ export default function Login(){
             })
             .then(response => response.json())
             .then(result =>{
-                console.log(result.log)
                 console.log(result.log[0].Id_usuario)
                 if (result.validar == true){
                     localStorage.setItem("loguedUser", result.log[0].Id_usuario)
-                    alert("Funca?")
-                    router.replace("../listaC")
+                    router.push("../listaC")
                 } else {
                     return alert("La Cagaste")
                 }}

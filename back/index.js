@@ -37,7 +37,7 @@ app.post('/login',async function(req,res){
     }
 })
 
-// Este codigo puede fallar - Copiado de TP fin 1er cuatri; Rivas lo reporto con error en la correccion (Gian te revisa los comentarios salame)
+// Arreglado (x ahora)
 app.post('/registro',async function(req,res){
     try {
         console.log(req.body);
@@ -47,6 +47,21 @@ app.post('/registro',async function(req,res){
             let loguedUser = await realizarQuery(`SELECT Id_usuario FROM Usuarios WHERE Mail = "${req.body.mail}" AND Contra = "${req.body.password}" `)
             console.log(loguedUser)
             res.send({validar:true, log:loguedUser});
+        }
+        else{
+            res.send({validar:false});
+        }
+    } catch (error) {
+        res.send({validar:false})
+    }
+})
+
+app.post('/contactos',async function(req,res){
+    try {
+        console.log(req.body);
+        let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Id_usuario != ${req.body.id}`)
+        if(vector.length != 0){
+            res.send({validar:true, usuarios:vector})
         }
         else{
             res.send({validar:false});
