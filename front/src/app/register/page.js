@@ -45,7 +45,6 @@ export default function Register(){
                 console.log(result)
                 if (result.validar == true){
                     localStorage.setItem("loguedUser", result.log[0].Id_usuario)
-                    alert("Funca?")
                     router.replace("../listaC")
                 } else {
                     return alert("La Cagaste")

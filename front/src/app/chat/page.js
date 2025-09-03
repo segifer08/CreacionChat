@@ -24,7 +24,7 @@ export default function chat(){
                 mail={"malquinequi"}
             ></ContactoR>
             {mensajes.map(mensaje => {
-                    <Mensajito mail={mensaje.mail} text={mensaje.text}></Mensajito>
+                    <Mensajito mail={mensaje.Mail} text={mensaje.text}></Mensajito>
                 })
             }
         </>
