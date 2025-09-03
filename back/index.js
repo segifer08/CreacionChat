@@ -70,3 +70,18 @@ app.post('/contactos',async function(req,res){
         res.send({validar:false})
     }
 })
+
+app.post('/perfil',async function(req,res){
+    try {
+        console.log(req.body);
+        let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Id_usuario = ${req.body.id}`)
+        if(vector.length != 0){
+            res.send({validar:true, usuario:vector})
+        }
+        else{
+            res.send({validar:false});
+        }
+    } catch (error) {
+        res.send({validar:false})
+    }
+})
