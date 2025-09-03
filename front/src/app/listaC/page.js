@@ -8,12 +8,26 @@ export default function listaContactos(){
     return(
         <>
           <div className={styles.lista}>
-            { contactos.map(contacto => {
-              <ContactoR mail={contacto.mail} url={contacto.imagen}></ContactoR>
-            })
-
-            }
+            <div className={styles.contacto}>
+              <ContactoR mail={"pedo"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
+            </div>
+            <div className={styles.contacto}>
+              <ContactoR mail={"pedo"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
+            </div>
+            <div className={styles.contacto}>
+              <ContactoR mail={"pedo"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
+            </div>
+            <div className={styles.contacto}>
+              <ContactoR mail={"pedo"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
+            </div>
+            
           </div>
         </>
     )
 }
+
+/*{ contactos.map(contacto => {
+  <ContactoR mail={contacto.mail} url={contacto.imagen}></ContactoR>
+})
+
+}*/

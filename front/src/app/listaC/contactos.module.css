@@ -8,5 +8,26 @@
 }
 
 .lista {
-    background-color: black;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    font-size: 45px;
+    color: #91ad6e;
+}
+
+.contacto {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  gap: 40px;
+  background-color: #34513f;
+  border-radius: 20px;
+  border: solid #223336;
+}
+
+.contacto img {
+  width: 70px;
+  border-radius: 100%;
+  border: solid #223336;
 }
