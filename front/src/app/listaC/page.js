@@ -11,11 +11,11 @@ export default function listaContactos(){
   const router = useRouter()
 
   useEffect(()=>{
-    //const loguedUser = localStorage.getItem("loguedUser")
-    //setLogued(loguedUser)
+    const loguedUser = localStorage.getItem("loguedUser")
+    setLogued(loguedUser)
     console.log(logued);
     datosLista()
-    }, [])
+  }, [])
 
   function lista(datos){
     fetch("http://localhost:4000/contactos",
@@ -54,9 +54,13 @@ export default function listaContactos(){
 
     return(
         <>
-          {contactos.map(contacto=>{
+        <h1>Contactos:</h1>
+          {contactos.length != 0 && contactos.map(contacto=>{
               console.log("contacto: ",contacto)
-              return <ContactoR key={contacto.Id_Usuario} onClick={moverse} mail={contacto.mail} url={contacto.imagen}></ContactoR>
+              if(contacto.imagen == null){
+                contacto.imagen = "https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"
+              }
+              return <ContactoR key={contacto.Id_Usuario} onClick={moverse} mail={contacto.Mail} url={contacto.imagen}></ContactoR>
           }
           )
           }
