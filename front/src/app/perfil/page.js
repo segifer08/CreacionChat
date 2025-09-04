@@ -8,6 +8,7 @@ export default function perfil(){
     const [logued, setLogued] = useState(loguedUser)
     const [linkedin, setLinkedin] = useState(null)
     const [malquinequi, setMalquinequi] = useState("")
+    const [cambiazo, setCambiazo] = useState("")
 
     useEffect(()=>{
         const loguedUser = localStorage.getItem("loguedUser")
@@ -40,16 +41,49 @@ export default function perfil(){
         )
   }
 
-  function perfilado() {
-  if(logued == undefined){
-      return ui.showModal("Error", "Faltan datos")
-  }
-  console.log(logued)
-  let datos = {
-      id: logued
+    function perfilado() {
+        if(logued == undefined){
+            return ui.showModal("Error", "Faltan datos")
+        }
+        console.log(logued)
+        let datos = {
+            id: logued
+        } 
+        perfil(datos)
+    }
 
+    // fetch de cambio imagen
+
+    function imagen(datos){
+        fetch("http://localhost:4000/perfil",{   
+            method:"POST", 
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(datos)
+        })
+        .then(response => response.json())
+        .then(result =>{
+            if (result.validar == true){
+                return alert("Imagen cambiada con exito") 
+            } else {
+                return alert("La Cagaste")
+            }
+        }
+        )
   }
-  perfil(datos)}
+
+    function cambio() {
+        if(logued == undefined){
+            return ui.showModal("Error", "Faltan datos")
+        }
+        console.log(logued)
+        let datos = {
+            imagen: cambiazo,
+            id: logued
+        } 
+        imagen(datos)
+    }
 
   function moverse(){
     router.push("../chat")
