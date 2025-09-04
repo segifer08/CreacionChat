@@ -1,5 +1,6 @@
 "use client"
 
+import styles from "@/app/listaC/contactos.module.css"
 import ContactoR from "@/components/ContactoR"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -54,6 +55,7 @@ export default function listaContactos(){
 
     return(
         <>
+
         <h1>Contactos:</h1>
           {contactos.length != 0 && contactos.map(contacto=>{
               console.log("contacto: ",contacto)
@@ -67,3 +69,9 @@ export default function listaContactos(){
         </>
     )
 }
+
+/*{ contactos.map(contacto => {
+  <ContactoR mail={contacto.mail} url={contacto.imagen}></ContactoR>
+})
+
+}*/

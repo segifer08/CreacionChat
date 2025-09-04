@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
+
+.hammersmith-one-regular {
+  font-family: "Hammersmith One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.titulo {
+  background-color: #34513f;
+  color: #91ad6e;
+  padding: 20px;
+  width: 700px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  justify-self: center;
+}
+
+.h4 {
+    color: #34513f;
+    font-size: 20px;
+    text-align: center;
+}
+
+.content {
+    color: #34513f;
+    text-align: center;
+    justify-self: center;
+    transform: translate(-0%, 25%);
+}
