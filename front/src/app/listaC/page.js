@@ -9,16 +9,16 @@ export default function listaContactos(){
         <>
           <div className={styles.lista}>
             <div className={styles.contacto}>
-              <ContactoR mail={"pedo"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
+              <ContactoR mail={"Towa"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
             </div>
             <div className={styles.contacto}>
-              <ContactoR mail={"pedo"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
+              <ContactoR mail={"Tsuna Nekota"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
             </div>
             <div className={styles.contacto}>
-              <ContactoR mail={"pedo"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
+              <ContactoR mail={"Aqua"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
             </div>
             <div className={styles.contacto}>
-              <ContactoR mail={"pedo"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
+              <ContactoR mail={"Ayame"} url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}></ContactoR>
             </div>
             
           </div>
