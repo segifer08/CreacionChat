@@ -91,7 +91,7 @@ app.post('/perfil',async function(req,res){
 app.put('/imagenP', async function(req,res){
     try {
         console.log(req.body);
-        await realizarQuery(`UPDATE Usuarios SET imagen = "${req.body.imagen}" WHERE Id_Pregunta = ${req.body.id}`);
+        await realizarQuery(`UPDATE Usuarios SET imagen = "${req.body.imagen}" WHERE Id_usuario = ${req.body.id}`);
         res.send({validar:true})
     } catch (error) {
         res.send({validar:false})

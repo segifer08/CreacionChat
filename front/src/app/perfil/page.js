@@ -30,6 +30,7 @@ export default function perfil(){
             if (result.validar == true){
                 console.log(result.usuario)
                 setLinkedin(result.usuario[0].imagen)
+                console.log(linkedin)
                 if(linkedin == null){
                     setLinkedin("https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg")
                 }
@@ -55,8 +56,8 @@ export default function perfil(){
     // fetch de cambio imagen
 
     function imagen(datos){
-        fetch("http://localhost:4000/perfil",{   
-            method:"POST", 
+        fetch("http://localhost:4000/imagenP",{   
+            method:"PUT", 
             headers: {
                 "Content-Type": "application/json",
             },
@@ -77,12 +78,18 @@ export default function perfil(){
         if(logued == undefined){
             return ui.showModal("Error", "Faltan datos")
         }
+        console.log(cambiazo)
         console.log(logued)
         let datos = {
             imagen: cambiazo,
             id: logued
         } 
         imagen(datos)
+    }
+
+    function corrobao(event){
+        console.log(cambiazo)
+        setCambiazo(event.target.value)
     }
 
   function moverse(){
@@ -92,6 +99,11 @@ export default function perfil(){
     return(
         <>
             <ContactoG
+                type={"text"}
+                onChange={corrobao}
+                value={cambiazo}
+                text={"Cambiar Imagen?"}
+                onClick={cambio}
                 url={linkedin}
                 mail={malquinequi}
             ></ContactoG>
