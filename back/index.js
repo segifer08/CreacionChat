@@ -56,6 +56,8 @@ app.post('/registro',async function(req,res){
     }
 })
 
+
+// Contactos y Perfil
 app.post('/contactos',async function(req,res){
     try {
         console.log(req.body);
@@ -77,6 +79,48 @@ app.post('/perfil',async function(req,res){
         let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Id_usuario = ${req.body.id}`)
         if(vector.length != 0){
             res.send({validar:true, usuario:vector})
+        }
+        else{
+            res.send({validar:false});
+        }
+    } catch (error) {
+        res.send({validar:false})
+    }
+})
+
+app.put('/imagenP', async function(req,res){
+    try {
+        console.log(req.body);
+        await realizarQuery(`UPDATE Usuarios SET imagen = "${req.body.imagen}" WHERE Id_Pregunta = ${req.body.id}`);
+        res.send({validar:true})
+    } catch (error) {
+        res.send({validar:false})
+    }
+})
+
+
+/* Chats y Mensajes
+app.post('/chats',async function(req,res){
+    try {
+        console.log(req.body);
+        let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Id_usuario != ${req.body.id}`)
+        if(vector.length != 0){
+            res.send({validar:true, usuarios:vector})
+        }
+        else{
+            res.send({validar:false});
+        }
+    } catch (error) {
+        res.send({validar:false})
+    }
+}) */
+
+app.post('/mensajes',async function(req,res){
+    try {
+        console.log(req.body);
+        let vector = await realizarQuery(`SELECT * FROM Mensajes WHERE Id_chat != ${req.body.id}`)
+        if(vector.length != 0){
+            res.send({validar:true, mensajes:vector})
         }
         else{
             res.send({validar:false});
