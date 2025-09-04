@@ -16,5 +16,10 @@
     border-radius: 20px;
     border: solid #34513f;
     font-family: "Hammersmith One";
+    transition-duration: 0.2s;
 }
 
+.button:hover {
+  background-color: #223336;
+  color: #91ad6e;
+}

@@ -7,14 +7,14 @@
   font-style: normal;
 }
 
-.lista {
+/*.lista {
     display: flex;
     flex-direction: column;
     gap: 10px;
     text-align: center;
     font-size: 45px;
     color: #91ad6e;
-}
+}*/
 
 .contacto {
   display: flex;
@@ -24,10 +24,31 @@
   background-color: #34513f;
   border-radius: 20px;
   border: solid #223336;
+  color: #91ad6e;
+  font-size: 45px;
+  transition-duration: 0.2s;
 }
 
 .contacto img {
   width: 70px;
   border-radius: 100%;
   border: solid #223336;
+}
+
+.h1 {
+  background-color: #34513f;
+  color: #91ad6e;
+  padding: 20px;
+  width: 700px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  justify-self: center;
+  text-align: center;
+
+}
+
+.contacto:hover {
+  background-color: #223336;
+  border: solid #34513f;
 }

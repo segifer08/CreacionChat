@@ -40,7 +40,7 @@ export default function listaContactos(){
 
   function datosLista() {
   if(logued == undefined){
-      return ui.showModal("Error", "Faltan datos")
+      return alert("Error", "Faltan datos")
   }
   console.log(logued)
   let datos = {
@@ -56,13 +56,15 @@ export default function listaContactos(){
     return(
         <>
 
-        <h1>Contactos:</h1>
+        <h1 className={styles.h1}>Contactos</h1>
           {contactos.length != 0 && contactos.map(contacto=>{
               console.log("contacto: ",contacto)
               if(contacto.imagen == null){
                 contacto.imagen = "https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"
               }
-              return <ContactoR key={contacto.Id_Usuario} onClick={moverse} mail={contacto.Mail} url={contacto.imagen}></ContactoR>
+              
+                return <ContactoR className={styles.contacto} key={contacto.Id_Usuario} onClick={moverse} mail={contacto.Mail} url={contacto.imagen}></ContactoR>
+              
           }
           )
           }
