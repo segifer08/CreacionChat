@@ -17,7 +17,7 @@ export default function listaContactos(){
     datosLista()
   }, [])
 
-  function lista(datos){
+  function lista(){
     fetch("http://localhost:4000/contactos",
     {
       method:"POST", 
@@ -30,7 +30,7 @@ export default function listaContactos(){
     .then(result =>{
       console.log(result.usuarios)
       if (result.validar == true){
-          setContactos(result.usuarios)
+          setContactos(result.chat)
       } else {
           return alert("La Cagaste")
       }}
@@ -38,18 +38,17 @@ export default function listaContactos(){
   }
 
   function datosLista() {
-  if(logued == undefined){
-      return ui.showModal("Error", "Faltan datos")
+    if(logued == undefined){
+        return alert("Error, Faltan datos")
+    } else {
+      lista()
+    }
   }
-  console.log(logued)
-  let datos = {
-      id: logued
 
-  }
-  lista(datos)}
-
-  function moverse(){
-    router.push("../chat")
+  function moverse(event){
+    console.log(event.currentTarget.key)
+    localStorage.setItem("selectedChat", event.currentTarget.key)
+    // router.push("../chat")
   }
 
     return(
@@ -57,7 +56,9 @@ export default function listaContactos(){
         <h1>Contactos:</h1>
           {contactos.length != 0 && contactos.map(contacto=>{
               console.log("contacto: ",contacto)
-              if(contacto.imagen == null){
+              if(contacto.imagen == null && contacto.Es_Grupo == false){
+                contacto.imagen = "https://upload.wikimedia.org/wikipedia/en/4/42/Master_chief_halo_infinite.png"
+              } else if(contacto.imagen == null && contacto.Es_Grupo == true){
                 contacto.imagen = "https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"
               }
               return <ContactoR key={contacto.Id_Usuario} onClick={moverse} mail={contacto.Mail} url={contacto.imagen}></ContactoR>

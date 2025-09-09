@@ -1,25 +1,79 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var cors = require('cors');
-const { realizarQuery } = require('./modulos/mysql');
+// Proyecto "Creacion de Chat - Grupo 12"
+// Desarrollo de Aplicaciones Informáticas - Proyecto de Producción - 5to Informática
 
-var app = express();
-var port = process.env.PORT || 4000;
+// Docentes: Nicolás Facón, Matías Marchesi, Pablo Morandi, Martín Rivas
 
-app.use(bodyParser.urlencoded({extended:false}));
+// Revisión 6 - Año 2025
+
+// Cargo librerías instaladas y necesarias
+const express = require('express'); // Para el manejo del web server
+const bodyParser = require('body-parser'); // Para el manejo de los strings JSON
+const MySQL = require('./modulos/mysql'); // Añado el archivo mysql.js presente en la carpeta módulos
+const session = require('express-session'); // Para el manejo de las variables de sesión
+const cors = cors({})
+
+const app = express(); // Inicializo express para el manejo de las peticiones
+
+app.use(bodyParser.urlencoded({ extended: false })); // Inicializo el parser JSON
 app.use(bodyParser.json());
-app.use(cors());
 
-app.get('/', function(req, res){
-    res.status(200).send({
-        message: 'GET Home route working fine!'
-    });
+const LISTEN_PORT = 4000; // Puerto por el que estoy ejecutando la página Web
+
+const server = app.listen(LISTEN_PORT, () => {
+    console.log(`Servidor NodeJS corriendo en http://localhost:${LISTEN_PORT}/`);
+});;
+
+const io = require('socket.io')(server, {
+    cors: {
+    // IMPORTANTE: REVISAR PUERTO DEL FRONTEND
+        origin: ["http://localhost:3000", "http://localhost:3001"], // Permitir el origen localhost:3000
+        methods: ["GET", "POST", "PUT", "DELETE"],   // Métodos permitidos
+        credentials: true                           // Habilitar el envío de cookies
+    }
 });
 
-//Pongo el servidor a escuchar
-app.listen(port, function () {
-    console.log(`Server running in http://localhost:${port}`);
+const sessionMiddleware = session({
+    //Elegir tu propia key secreta
+    secret: "supersarasa",
+    resave: false,
+    saveUninitialized: false
 });
+
+app.use(sessionMiddleware);
+
+io.use((socket, next) => {
+    sessionMiddleware(socket.request, {}, next);
+});
+
+// A PARTIR DE ACÁ LOS EVENTOS DEL SOCKET 
+
+io.on("connection", (socket) => {
+    const req = socket.request;
+    socket.on('joinRoom', data => {
+    console.log("🚀 ~ io.on ~ req.session.room:", req.session.room)
+    if (req.session.room != undefined && req.session.room.length > 0)
+    socket.leave(req.session.room);
+    req.session.room = data.room;
+    socket.join(req.session.room);
+    io.to(req.session.room).emit('chat-messages', { user: req.session.user, room: req.session.room });
+});
+
+socket.on('pingAll', data => {
+    console.log("PING ALL: ", data);
+    io.emit('pingAll', { event: "Ping to all", message: data });
+});
+
+socket.on('sendMessage', data => {
+    io.to(req.session.room).emit('newMessage', { room: req.session.room, message: data });
+});
+
+socket.on('disconnect', () => {
+    console.log("Disconnect");
+})
+});
+
+
+// A PARTIR DE ACÁ LOS PEDIDOS HTTP (GET, POST, PUT, DELETE)
 
 app.post('/login',async function(req,res){
     try {
@@ -61,9 +115,9 @@ app.post('/registro',async function(req,res){
 app.post('/contactos',async function(req,res){
     try {
         console.log(req.body);
-        let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Id_usuario != ${req.body.id}`)
+        let vector = await realizarQuery(`SELECT * FROM Chats`)
         if(vector.length != 0){
-            res.send({validar:true, usuarios:vector})
+            res.send({validar:true, chats:vector})
         }
         else{
             res.send({validar:false});
