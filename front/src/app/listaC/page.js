@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 export default function listaContactos(){
   let loguedUser = localStorage.getItem("loguedUser")
   const [logued, setLogued] = useState(loguedUser)
+  const [idChats, setIdsChat] = useState([])
   const [contactos, setContactos] = useState([])
   const router = useRouter()
 
@@ -14,10 +15,10 @@ export default function listaContactos(){
     const loguedUser = localStorage.getItem("loguedUser")
     setLogued(loguedUser)
     console.log(logued);
-    datosLista()
+    ids()
   }, [])
 
-  function lista(){
+  function idsChat(datos){
     fetch("http://localhost:4000/contactos",
     {
       method:"POST", 
@@ -28,20 +29,23 @@ export default function listaContactos(){
     })
     .then(response => response.json())
     .then(result =>{
-      console.log(result.usuarios)
       if (result.validar == true){
-          setContactos(result.chat)
+          console.log(result.IdsChats)
+          setIdsChat(result.IdsChats)
       } else {
           return alert("La Cagaste")
       }}
     )
   }
 
-  function datosLista() {
+  function ids() {
     if(logued == undefined){
         return alert("Error, Faltan datos")
     } else {
-      lista()
+      let datos = {
+        id: logued
+    }
+      idsChat(datos)
     }
   }
 

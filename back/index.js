@@ -10,9 +10,11 @@ const express = require('express'); // Para el manejo del web server
 const bodyParser = require('body-parser'); // Para el manejo de los strings JSON
 const MySQL = require('./modulos/mysql'); // Añado el archivo mysql.js presente en la carpeta módulos
 const session = require('express-session'); // Para el manejo de las variables de sesión
-const cors = cors({})
+const cors = require('cors');
+const { realizarQuery } = require('./modulos/mysql');
 
 const app = express(); // Inicializo express para el manejo de las peticiones
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false })); // Inicializo el parser JSON
 app.use(bodyParser.json());
@@ -96,6 +98,7 @@ app.post('/registro',async function(req,res){
     try {
         console.log(req.body);
         let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Mail = "${req.body.mail}" AND Contra = "${req.body.password}" `)
+        console.log(vector.length)
         if(vector.length == 0){
             await realizarQuery(`INSERT INTO Usuarios (Mail,Contra) VALUES ("${req.body.mail}", "${req.body.password}");`);
             let loguedUser = await realizarQuery(`SELECT Id_usuario FROM Usuarios WHERE Mail = "${req.body.mail}" AND Contra = "${req.body.password}" `)
@@ -106,26 +109,13 @@ app.post('/registro',async function(req,res){
             res.send({validar:false});
         }
     } catch (error) {
+        console.log(error)
         res.send({validar:false})
     }
 })
 
 
 // Contactos y Perfil
-app.post('/contactos',async function(req,res){
-    try {
-        console.log(req.body);
-        let vector = await realizarQuery(`SELECT * FROM Chats`)
-        if(vector.length != 0){
-            res.send({validar:true, chats:vector})
-        }
-        else{
-            res.send({validar:false});
-        }
-    } catch (error) {
-        res.send({validar:false})
-    }
-})
 
 app.post('/perfil',async function(req,res){
     try {
@@ -153,13 +143,15 @@ app.put('/imagenP', async function(req,res){
 })
 
 
-/* Chats y Mensajes
-app.post('/chats',async function(req,res){
+// Chats y Mensajes
+
+app.post('/contactos',async function(req,res){
     try {
         console.log(req.body);
-        let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Id_usuario != ${req.body.id}`)
+        let vector = await realizarQuery(`SELECT Id_chat FROM Usuarios_x_chats WHERE Id_usuario =  ${req.body.id}`)
+        console.log(vector)
         if(vector.length != 0){
-            res.send({validar:true, usuarios:vector})
+            res.send({validar:true, IdsChats:vector})
         }
         else{
             res.send({validar:false});
@@ -167,7 +159,22 @@ app.post('/chats',async function(req,res){
     } catch (error) {
         res.send({validar:false})
     }
-}) */
+})
+
+app.post('/chats',async function(req,res){
+    try {
+        console.log(req.body);
+        let vector = await realizarQuery(`SELECT * FROM Chats WHERE Id_chat == ${req.body.id}`)
+        if(vector.length != 0){
+            res.send({validar:true, chats:vector})
+        }
+        else{
+            res.send({validar:false});
+        }
+    } catch (error) {
+        res.send({validar:false})
+    }
+}) 
 
 app.post('/mensajes',async function(req,res){
     try {
