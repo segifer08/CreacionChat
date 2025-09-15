@@ -39,6 +39,7 @@ export default function chat(){
                 className={styles.inpu}
                 text={"text"}
                 onClick={placeholer}
+                textb={"Enviar"}
             ></InputM>
         </>
     )

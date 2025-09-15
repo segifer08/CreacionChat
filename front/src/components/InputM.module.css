@@ -1,8 +1,26 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
+
+.hammersmith-one-regular {
+  font-family: "Hammersmith One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
 .inputm {
+    font-family: "Hammersmith One";
     width: 90%;
     height: 50px;
     border-radius: 50px;
     border: solid #34513f;
     color: #34513f;
-    margin-top: 35%;
+    font-size: 20px;
+    margin-top: 37%;
+    transform: translate(5%);
+}
+
+.boton2 {
+    transform: translate(5%);
 }
