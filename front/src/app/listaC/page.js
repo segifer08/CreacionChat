@@ -1,5 +1,10 @@
 "use client"
 
+/* Usuario pruebas
+toplovetowa@gmail.com
+TowaLove0909
+*/
+
 import ContactoR from "@/components/ContactoR"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -7,7 +12,6 @@ import { useEffect, useState } from "react"
 export default function listaContactos(){
   let loguedUser = localStorage.getItem("loguedUser")
   const [logued, setLogued] = useState(loguedUser)
-  const [idChats, setIdsChat] = useState([])
   const [contactos, setContactos] = useState([])
   const router = useRouter()
 
@@ -30,8 +34,8 @@ export default function listaContactos(){
     .then(response => response.json())
     .then(result =>{
       if (result.validar == true){
-          console.log(result.IdsChats)
-          setIdsChat(result.IdsChats)
+          console.log(result.chats)
+          setContactos(result.chats)
       } else {
           return alert("La Cagaste")
       }}
@@ -55,20 +59,19 @@ export default function listaContactos(){
     // router.push("../chat")
   }
 
-    return(
-        <>
-        <h1>Contactos:</h1>
-          {contactos.length != 0 && contactos.map(contacto=>{
-              console.log("contacto: ",contacto)
-              if(contacto.imagen == null && contacto.Es_Grupo == false){
-                contacto.imagen = "https://upload.wikimedia.org/wikipedia/en/4/42/Master_chief_halo_infinite.png"
-              } else if(contacto.imagen == null && contacto.Es_Grupo == true){
-                contacto.imagen = "https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"
-              }
-              return <ContactoR key={contacto.Id_Usuario} onClick={moverse} mail={contacto.Mail} url={contacto.imagen}></ContactoR>
-          }
-          )
-          }
-        </>
-    )
+  return(
+      <>
+      <h1>Contactos:</h1>
+        {contactos.length != 0 && contactos.map(contacto=>{
+            console.log("contacto: ",contacto)
+            if(contacto.Imagen == null && contacto.Es_Grupo == false){
+              contacto.imagen = "https://upload.wikimedia.org/wikipedia/en/4/42/Master_chief_halo_infinite.png"
+            } else if(contacto.Imagen == null && contacto.Es_Grupo == true){
+              contacto.imagen = "https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"
+            }
+            return <ContactoR key={contacto.Id_Chat} onClick={moverse} mail={contacto.Nombre} url={contacto.Imagen}></ContactoR>
+        })
+        }
+      </>
+  )
 }

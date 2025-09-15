@@ -2,16 +2,31 @@
 
 import ContactoR from "@/components/ContactoR"
 import Mensajito from "@/components/Mensaje"
+import { useSocket } from "@/hooks/useSocket"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function chat(){
-    const [mensajes, setMensajes] = useState([])
-    const [linkedin, setLinkedin] = useState("")
-    const [malquinequi, setMalquinequi] = useState("")
+    const [message, setMessage] = useState("");
+    const [mensajes, setMensajes] = useState([]);
+    const [linkedin, setLinkedin] = useState("");
+    const [malquinequi, setMalquinequi] = useState("");
+    const [socket, isConnected] = useSocket
     const router = useRouter()
 
     /*ACA VA UN FETCH*/
+
+    /* 
+    useEffect(()=>{
+         socket.on("newMessage", (data) => {console.log(data)})
+    }, [])
+    
+    useEffect(()=>{
+         socket.emit("joinRoom", {room: "pio"})
+    }, [socket])
+
+        
+    */
     function moverse() {
         router.push("../perfil")
     }

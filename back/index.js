@@ -147,11 +147,18 @@ app.put('/imagenP', async function(req,res){
 
 app.post('/contactos',async function(req,res){
     try {
+        let vectorChats = []
         console.log(req.body);
         let vector = await realizarQuery(`SELECT Id_chat FROM Usuarios_x_chats WHERE Id_usuario =  ${req.body.id}`)
         console.log(vector)
-        if(vector.length != 0){
-            res.send({validar:true, IdsChats:vector})
+        // [{Id_chat: 1}, {Id_chat: 2}]
+        for (let i=0; i < vector.length; i++) {
+            let idChat = vector[i].Id_chat
+            let chat = await realizarQuery(`SELECT * FROM Chats WHERE Id_chat = ${idChat}`)
+            vectorChats.push(chat);
+        }
+        if(vectorChats.length != 0){
+            res.send({validar:true, chats : vectorChats})
         }
         else{
             res.send({validar:false});
@@ -161,7 +168,7 @@ app.post('/contactos',async function(req,res){
     }
 })
 
-app.post('/chats',async function(req,res){
+/* app.post('/chats',async function(req,res){
     try {
         console.log(req.body);
         let vector = await realizarQuery(`SELECT * FROM Chats WHERE Id_chat == ${req.body.id}`)
@@ -174,7 +181,7 @@ app.post('/chats',async function(req,res){
     } catch (error) {
         res.send({validar:false})
     }
-}) 
+}) */
 
 app.post('/mensajes',async function(req,res){
     try {
