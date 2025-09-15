@@ -10,16 +10,14 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function listaContactos(){
-  let loguedUser = localStorage.getItem("loguedUser")
-  const [logued, setLogued] = useState(loguedUser)
+  const [logued, setLogued] = useState(0)
   const [contactos, setContactos] = useState([])
   const router = useRouter()
 
   useEffect(()=>{
     const loguedUser = localStorage.getItem("loguedUser")
-    setLogued(loguedUser)
-    console.log(logued);
-    ids()
+    setLogued(parseInt(loguedUser))
+    ids(loguedUser)
   }, [])
 
   function idsChat(datos){
@@ -42,7 +40,7 @@ export default function listaContactos(){
     )
   }
 
-  function ids() {
+  function ids(logued) {
     if(logued == undefined){
         return alert("Error, Faltan datos")
     } else {
@@ -62,14 +60,18 @@ export default function listaContactos(){
   return(
       <>
       <h1>Contactos:</h1>
-        {contactos.length != 0 && contactos.map(contacto=>{
+        {contactos.length != 0 && contactos.map((contacto, index)=>{
             console.log("contacto: ",contacto)
             if(contacto.Imagen == null && contacto.Es_Grupo == false){
-              contacto.imagen = "https://upload.wikimedia.org/wikipedia/en/4/42/Master_chief_halo_infinite.png"
+              contacto.Imagen = "https://upload.wikimedia.org/wikipedia/en/4/42/Master_chief_halo_infinite.png"
             } else if(contacto.Imagen == null && contacto.Es_Grupo == true){
-              contacto.imagen = "https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"
+              contacto.Imagen = "https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"
             }
-            return <ContactoR key={contacto.Id_Chat} onClick={moverse} mail={contacto.Nombre} url={contacto.Imagen}></ContactoR>
+            return (
+              <ContactoR key={index} 
+                onClick={moverse} 
+                mail={contacto.Nombre} url={contacto.Imagen}></ContactoR>
+          )
         })
         }
       </>

@@ -155,7 +155,8 @@ app.post('/contactos',async function(req,res){
         for (let i=0; i < vector.length; i++) {
             let idChat = vector[i].Id_chat
             let chat = await realizarQuery(`SELECT * FROM Chats WHERE Id_chat = ${idChat}`)
-            vectorChats.push(chat);
+            vectorChats.push(chat[0]);
+
         }
         if(vectorChats.length != 0){
             res.send({validar:true, chats : vectorChats})
