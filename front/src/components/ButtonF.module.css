@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
+
+.hammersmith-one-regular {
+  font-family: "Hammersmith One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.button {
+    background-color: #34513f;
+    color: #91ad6e;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: solid #34513f;
+    font-family: "Hammersmith One";
+    transition-duration: 0.2s;
+    width: 60px;
+}
+
+.button:hover {
+  background-color: #223336;
+  color: #91ad6e;
+}

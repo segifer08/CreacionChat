@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "@/components/Button.module.css"
+import styles from "@/components/ButtonF.module.css"
 export default function Button(props) {
 
     return (
