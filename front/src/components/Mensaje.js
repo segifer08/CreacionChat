@@ -1,4 +1,4 @@
-export default function Mensajito(props) {
+export default function Mensaje(props) {
     return (
         <>
             <h6>{props.mail}</h6>

@@ -169,10 +169,10 @@ app.post('/contactos',async function(req,res){
     }
 })
 
-/* app.post('/chats',async function(req,res){
+app.post('/chat',async function(req,res){
     try {
         console.log(req.body);
-        let vector = await realizarQuery(`SELECT * FROM Chats WHERE Id_chat == ${req.body.id}`)
+        let vector = await realizarQuery(`SELECT * FROM Chats WHERE Id_chat = ${req.body.id}`)
         if(vector.length != 0){
             res.send({validar:true, chats:vector})
         }
@@ -182,7 +182,7 @@ app.post('/contactos',async function(req,res){
     } catch (error) {
         res.send({validar:false})
     }
-}) */
+})
 
 app.post('/mensajes',async function(req,res){
     try {

@@ -1,20 +1,29 @@
 "use client"
 
 import ContactoR from "@/components/ContactoR"
-import Mensajito from "@/components/Mensaje"
+import Mensaje from "@/components/Mensaje"
 import { useSocket } from "@/hooks/useSocket"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function chat(){
     const [message, setMessage] = useState("");
+    const [logued, setLogued] = useState(0)
+    const [chatee, setChatee] = useState(0)
+    const [chat, setChat] = useState([]);
     const [mensajes, setMensajes] = useState([]);
     const [linkedin, setLinkedin] = useState("");
     const [malquinequi, setMalquinequi] = useState("");
-    const [socket, isConnected] = useSocket
+    const {socket, isConnected} = useSocket()
     const router = useRouter()
-
-    /*ACA VA UN FETCH*/
+    
+    useEffect(()=>{
+    const loguedUser = localStorage.getItem("loguedUser")
+    const selectedChat = localStorage.getItem("selectedChat")
+    setLogued(parseInt(loguedUser))
+    setChatee(parseInt(selectedChat))
+    chatData(selectedChat)
+  }, [])
 
     /* 
     useEffect(()=>{
@@ -27,19 +36,53 @@ export default function chat(){
 
         
     */
+
+    /*ACA VA UN FETCH*/
+    function traerChat(datos){
+        fetch("http://localhost:4000/chat",
+        {
+            method:"POST", 
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(datos)
+        })
+        .then(response => response.json())
+        .then(result =>{
+            console.log(result)
+            if (result.validar == true){
+                console.log(result.chats)
+                setChat(result.chats)
+            } else {
+                return alert("La Cagaste")
+            }}
+        )
+    }
+
+    function chatData(chat) {
+    if(chat == undefined){
+        return alert("Error, Faltan datos")
+    }
+    let datos = {
+        id: chat
+    }
+    traerChat(datos)}
+
+    
     function moverse() {
         router.push("../perfil")
     }
 
     return(
         <>
-            <ContactoR
+        {chat.length != 0 && <ContactoR
                 onClick={moverse}
-                url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}
-                mail={"malquinequi"}
-            ></ContactoR>
+                id={chat[0].Id_Chat}
+                url={chat[0].Imagen}
+                mail={chat[0].Nombre}
+            ></ContactoR> }
             {mensajes.map(mensaje => {
-                    <Mensajito mail={mensaje.Mail} text={mensaje.text}></Mensajito>
+                    <Mensaje mail={mensaje.Mail} text={mensaje.text}></Mensaje>
                 })
             }
         </>

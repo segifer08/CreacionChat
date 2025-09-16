@@ -9,6 +9,8 @@ import ContactoR from "@/components/ContactoR"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
+const test = [0,1]
+
 export default function listaContactos(){
   const [logued, setLogued] = useState(0)
   const [contactos, setContactos] = useState([])
@@ -31,6 +33,9 @@ export default function listaContactos(){
     })
     .then(response => response.json())
     .then(result =>{
+
+
+
       if (result.validar == true){
           console.log(result.chats)
           setContactos(result.chats)
@@ -52,9 +57,9 @@ export default function listaContactos(){
   }
 
   function moverse(event){
-    console.log(event.currentTarget.key)
-    localStorage.setItem("selectedChat", event.currentTarget.key)
-    // router.push("../chat")
+    console.log(event.currentTarget.id)
+    localStorage.setItem("selectedChat", event.currentTarget.id)
+    router.push("../chat")
   }
 
   return(
@@ -68,7 +73,9 @@ export default function listaContactos(){
               contacto.Imagen = "https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"
             }
             return (
-              <ContactoR key={index} 
+              <ContactoR  
+                key={index}
+                id={contacto.Id_Chat}
                 onClick={moverse} 
                 mail={contacto.Nombre} url={contacto.Imagen}></ContactoR>
           )
