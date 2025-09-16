@@ -5,6 +5,8 @@ toplovetowa@gmail.com
 TowaLove0909
 */
 
+
+import styles from "@/app/listaC/contactos.module.css"
 import ContactoR from "@/components/ContactoR"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -45,6 +47,7 @@ export default function listaContactos(){
     )
   }
 
+
   function ids(logued) {
     if(logued == undefined){
         return alert("Error, Faltan datos")
@@ -64,7 +67,7 @@ export default function listaContactos(){
 
   return(
       <>
-      <h1>Contactos:</h1>
+      <h1 className={styles.h1}>Contactos:</h1>
         {contactos.length != 0 && contactos.map((contacto, index)=>{
             console.log("contacto: ",contacto)
             if(contacto.Imagen == null && contacto.Es_Grupo == false){
@@ -77,7 +80,7 @@ export default function listaContactos(){
                 key={index}
                 id={contacto.Id_Chat}
                 onClick={moverse} 
-                mail={contacto.Nombre} url={contacto.Imagen}></ContactoR>
+                mail={contacto.Nombre} url={contacto.Imagen} className={styles.contacto}></ContactoR>
           )
         })
         }

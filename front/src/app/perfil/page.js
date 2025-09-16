@@ -44,7 +44,7 @@ export default function perfil(){
 
     function perfilado() {
         if(logued == undefined){
-            return ui.showModal("Error", "Faltan datos")
+            return alert("Error Faltan datos")
         }
         console.log(logued)
         let datos = {

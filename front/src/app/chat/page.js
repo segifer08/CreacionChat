@@ -73,8 +73,13 @@ export default function chat(){
         router.push("../perfil")
     }
 
+    function placeholer(){
+        console.log("61L")
+    }
+
     return(
         <>
+
         {chat.length != 0 && <ContactoR
                 onClick={moverse}
                 id={chat[0].Id_Chat}
@@ -83,8 +88,16 @@ export default function chat(){
             ></ContactoR> }
             {mensajes.map(mensaje => {
                     <Mensaje mail={mensaje.Mail} text={mensaje.text}></Mensaje>
+
                 })
-            }
+                }
+            </div>
+            <InputM
+                className={styles.inpu}
+                text={"text"}
+                onClick={placeholer}
+                textb={"Enviar"}
+            ></InputM>
         </>
     )
 }

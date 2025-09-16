@@ -1,12 +1,14 @@
 "use client"
 
-/*import styles from "@/app/login/login.module.css"
+/*
 Usuario profes
 mail: profes@mail.com
 contra: profes
 */
+
 import Button from "@/components/Button"
 import Form from "@/components/Form"
+import styles from "@/app/login/login.module.css"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -83,6 +85,13 @@ export default function Login(){
     ></Form>
     <br></br>
     <br></br>
-    <Button text={"No tengo cuenta"} onClick={moverse}></Button>
+    <Button text={"No tengo cuenta"} onClick={moverse} className={styles.nocuenta}></Button>
+    
+    {
+        /*props.login == true ? 
+        <Button text={"No tengo cuenta"} onClick={moverse} className={styles.nocuenta}></Button>
+        :
+        <h2></h2>*/
+    }
     </>)
 }
