@@ -45,8 +45,9 @@ export default function Login(){
             })
             .then(response => response.json())
             .then(result =>{
-                console.log(result.log[0].Id_usuario)
+                console.log(result)
                 if (result.validar == true){
+                    console.log(result.log[0].Id_usuario)
                     localStorage.setItem("loguedUser", result.log[0].Id_usuario)
                     router.push("../listaC")
                 } else {

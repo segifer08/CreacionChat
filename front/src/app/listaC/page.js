@@ -1,24 +1,30 @@
 "use client"
 
+/* Usuario pruebas
+toplovetowa@gmail.com
+TowaLove0909
+*/
+
+
 import styles from "@/app/listaC/contactos.module.css"
 import ContactoR from "@/components/ContactoR"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
+const test = [0,1]
+
 export default function listaContactos(){
-  let loguedUser = localStorage.getItem("loguedUser")
-  const [logued, setLogued] = useState(loguedUser)
+  const [logued, setLogued] = useState(0)
   const [contactos, setContactos] = useState([])
   const router = useRouter()
 
   useEffect(()=>{
     const loguedUser = localStorage.getItem("loguedUser")
-    setLogued(loguedUser)
-    console.log(logued);
-    datosLista()
+    setLogued(parseInt(loguedUser))
+    ids(loguedUser)
   }, [])
 
-  function lista(datos){
+  function idsChat(datos){
     fetch("http://localhost:4000/contactos",
     {
       method:"POST", 
@@ -29,51 +35,55 @@ export default function listaContactos(){
     })
     .then(response => response.json())
     .then(result =>{
-      console.log(result.usuarios)
+
+
+
       if (result.validar == true){
-          setContactos(result.usuarios)
+          console.log(result.chats)
+          setContactos(result.chats)
       } else {
           return alert("La Cagaste")
       }}
     )
   }
 
-  function datosLista() {
-  if(logued == undefined){
-      return alert("Error", "Faltan datos")
-  }
-  console.log(logued)
-  let datos = {
-      id: logued
 
+  function ids(logued) {
+    if(logued == undefined){
+        return alert("Error, Faltan datos")
+    } else {
+      let datos = {
+        id: logued
+    }
+      idsChat(datos)
+    }
   }
-  lista(datos)}
 
-  function moverse(){
+  function moverse(event){
+    console.log(event.currentTarget.id)
+    localStorage.setItem("selectedChat", event.currentTarget.id)
     router.push("../chat")
   }
 
-    return(
-        <>
-
-        <h1 className={styles.h1}>Contactos</h1>
-          {contactos.length != 0 && contactos.map(contacto=>{
-              console.log("contacto: ",contacto)
-              if(contacto.imagen == null){
-                contacto.imagen = "https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"
-              }
-              
-                return <ContactoR className={styles.contacto} key={contacto.Id_Usuario} onClick={moverse} mail={contacto.Mail} url={contacto.imagen}></ContactoR>
-              
-          }
+  return(
+      <>
+      <h1 className={styles.h1}>Contactos:</h1>
+        {contactos.length != 0 && contactos.map((contacto, index)=>{
+            console.log("contacto: ",contacto)
+            if(contacto.Imagen == null && contacto.Es_Grupo == false){
+              contacto.Imagen = "https://upload.wikimedia.org/wikipedia/en/4/42/Master_chief_halo_infinite.png"
+            } else if(contacto.Imagen == null && contacto.Es_Grupo == true){
+              contacto.Imagen = "https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"
+            }
+            return (
+              <ContactoR  
+                key={index}
+                id={contacto.Id_Chat}
+                onClick={moverse} 
+                mail={contacto.Nombre} url={contacto.Imagen} className={styles.contacto}></ContactoR>
           )
-          }
-        </>
-    )
+        })
+        }
+      </>
+  )
 }
-
-/*{ contactos.map(contacto => {
-  <ContactoR mail={contacto.mail} url={contacto.imagen}></ContactoR>
-})
-
-}*/
