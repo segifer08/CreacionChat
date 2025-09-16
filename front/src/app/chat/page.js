@@ -43,6 +43,10 @@ export default function chat(){
                 })
                 }
             </div>
+            <Mensajito
+                mail={"towa@gmail.com"}
+                text={"100 novias"}
+            ></Mensajito>
             <InputM
                 className={styles.inpu}
                 text={"text"}
