@@ -187,7 +187,7 @@ app.post('/chat',async function(req,res){
 app.post('/mensajes',async function(req,res){
     try {
         console.log(req.body);
-        let vector = await realizarQuery(`SELECT * FROM Mensajes WHERE Id_chat != ${req.body.id}`)
+        let vector = await realizarQuery(`SELECT * FROM Mensajes WHERE Id_chat = ${req.body.id}`)
         if(vector.length != 0){
             res.send({validar:true, mensajes:vector})
         }
