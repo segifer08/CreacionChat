@@ -24,3 +24,10 @@
 .boton2 {
     transform: translate(5%);
 }
+
+.inputo {
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+  height: 0px;
+}

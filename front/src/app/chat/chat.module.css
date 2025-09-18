@@ -12,18 +12,26 @@
     text-align: center;
     font-size: 70px;
     color: #91ad6e;
-    position:;
 }
 
 .inpu button {
     width: 50px;
 }
 
-.div {
-    display: flex;
-    flex-direction: row;
-    background-color: #34513f;
-    
+.inpu {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
 }
 
+.div {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    background-color: #34513f;
+    position: fixed;
+    top: 0%;
+    z-index: 1000;
+    
+}
 

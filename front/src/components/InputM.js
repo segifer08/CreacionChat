@@ -9,13 +9,14 @@ export default function InputM(props) {
     
     return (
         <>  
-            <input className={styles.inputm} type={props.text} onChange={props.onChange} value={props.value}></input>
-            <ButtonM
-                className={styles.boton2}
-                onClick={props.onclick}
-                text={props.textb}
-            ></ButtonM>
-
+            <div className={styles.inputo}>
+                <input className={styles.inputm} type={props.text} onChange={props.onChange} value={props.value}></input>
+                <ButtonM
+                    className={styles.boton2}
+                    onClick={props.onclick}
+                    text={props.textb}
+                ></ButtonM>
+            </div>
         </>
     )
 
