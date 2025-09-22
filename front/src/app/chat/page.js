@@ -153,7 +153,7 @@ export default function chat() {
             }
             {mnsajes.length != 0 && mnsajes.map(mensaje => {
                 return (
-                    <Mensaje key={mensaje.id_M} mail={mensaje.id_Usuario} text={mensaje.content}></Mensaje>
+                    <Mensaje key={mensaje.id_mensaje} mail={mensaje.mail} text={mensaje.content}></Mensaje>
                 )
             })
             }
