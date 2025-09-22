@@ -187,14 +187,30 @@ app.post('/chat',async function(req,res){
 app.post('/mensajes',async function(req,res){
     try {
         console.log(req.body);
-        let vector = await realizarQuery(`SELECT * FROM Mensajes WHERE Id_chat != ${req.body.id}`)
+        let vector = await realizarQuery(`SELECT * FROM Mensajes WHERE Id_chat = ${req.body.id}`)
+        let email = []
+        let respuesta = []
         if(vector.length != 0){
-            res.send({validar:true, mensajes:vector})
+            for(let i=0;i < vector.length; i++){
+                email = await realizarQuery(`SELECT Mail FROM Usuarios WHERE Id_Usuario = ${vector[i].id_Usuario}`)
+                respuesta.push(
+                    {
+                        id_mensaje : vector[i].id_M,
+                        id_usuario: vector[i].id_Usuario,
+                        content: vector[i].content,
+                        mail : email[0].Mail,
+                        date : vector[i].date_time,
+                        id_chat: vector[i].id_Chat,
+                    }
+                )
+            }
+            res.send({validar:true, mensajes:respuesta})
         }
         else{
             res.send({validar:false});
         }
     } catch (error) {
+        console.log(error)
         res.send({validar:false})
     }
 })
