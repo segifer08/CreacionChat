@@ -24,9 +24,8 @@ export default function chat(){
     }
 
     return(
-        <>
-            <div className={styles.contener}>
-                <div className={styles.div}>
+        <>          
+                <div className={styles.contacto}>
                     <ButtonF
                         className={styles.botonf}
                         text={"<"}
@@ -38,23 +37,22 @@ export default function chat(){
                         url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}
                         mail={"malquinequi"}
                     ></ContactoR>
+                </div>
                     {mensajes.map(mensaje => {
                         <Mensajito mail={mensaje.Mail} text={mensaje.text}></Mensajito>
                     })
                     }
-                </div>
-                <Mensajito
-                    className={styles.mensaje}
-                    mail={"towa@gmail.com"}
-                    text={"100 novias, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
-                ></Mensajito>
-            </div>
-            <InputM
-                className={styles.inpu}
-                text={"text"}
-                onClick={placeholer}
-                textb={"Enviar"}
-            ></InputM>
+                        <Mensajito
+                            className={styles.mensaje}
+                            mail={"towa@gmail.com"}
+                            text={"100 novias, Lorem"}
+                        ></Mensajito>
+                            <InputM
+                                className={styles.inpu}
+                                text={"text"}
+                                onClick={placeholer}
+                                textb={"Enviar"}
+                            ></InputM>
         </>
     )
 }
