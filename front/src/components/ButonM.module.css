@@ -18,7 +18,7 @@
     border: solid #34513f;
     font-family: "Hammersmith One";
     transition-duration: 0.2s;
-    transform: translate(110%);
+    transform: translate(1150%, 300%);
     width: 70px;
     height: 50px;
 }

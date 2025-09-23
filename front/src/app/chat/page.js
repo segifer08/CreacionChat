@@ -24,7 +24,8 @@ export default function chat(){
     }
 
     return(
-        <>          
+        <>   
+            <div className={styles.content}>      
                 <div className={styles.contacto}>
                     <ButtonF
                         className={styles.botonf}
@@ -45,14 +46,15 @@ export default function chat(){
                         <Mensajito
                             className={styles.mensaje}
                             mail={"towa@gmail.com"}
-                            text={"100 novias, Lorem"}
+                            text={"100 novias, hakari hanazono, inda karane, shizuka yoshimoto, nano eiai, kusuri yakuzen, hahari hanazono, kurumi haraga, mei meido, iku sutou, mimimi, meme kakure, chiyo lin, nadeshiko yamato"}
                         ></Mensajito>
-                            <InputM
-                                className={styles.inpu}
-                                text={"text"}
-                                onClick={placeholer}
-                                textb={"Enviar"}
-                            ></InputM>
+                        <InputM
+                            className={styles.inpu}
+                            text={"text"}
+                            onClick={placeholer}
+                            textb={"Enviar"}
+                        ></InputM>
+            </div>
         </>
     )
 }
