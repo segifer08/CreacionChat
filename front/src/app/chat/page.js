@@ -16,9 +16,7 @@ export default function chat() {
     const [chatee, setChatee] = useState(0)
     const [chat, setChat] = useState([]);
     const [mnsajes, setMnsajes] = useState([]);
-    const [linkedin, setLinkedin] = useState("");
-    const [malquinequi, setMalquinequi] = useState("");
-    const { socket, isConnected } = useSocket()
+    const {socket, isConnected} = useSocket()
     const router = useRouter()
 
     useEffect(() => {
