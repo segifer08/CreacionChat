@@ -12,7 +12,7 @@ export default function InputM(props) {
             <input className={styles.inputm} type={props.text} onChange={props.onChange} value={props.value}></input>
             <ButtonM
                 className={styles.boton2}
-                onClick={props.onclick}
+                onClick={props.onClick}
                 text={props.textb}
             ></ButtonM>
 
