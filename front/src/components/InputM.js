@@ -9,7 +9,7 @@ export default function InputM(props) {
     
     return (
         <>  
-            <div className={styles.inputo}>
+            <div className={styles.inpto}>
                 <input className={styles.inputm} type={props.text} onChange={props.onChange} value={props.value}></input>
                 <ButtonM
                     className={styles.boton2}

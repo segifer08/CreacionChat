@@ -1,27 +1,36 @@
-.content {
-    background-color: aqua;
+/*.content {
     min-height: 100%;
     display: flex;
     flex-direction: column;
-}
+}*/
 
-.contacto img {
+.contactol img {
     width: 70px;
     margin: 20px;
     border: solid #223336;
     border-radius: 50%;
 }
 
-.contacto {
+.contactol {
     display: flex;
     flex-direction: row;
     background-color: #34513f;
     text-align: center;
     font-size: 70px;
     color: #91ad6e;
+    position: fixed;
+    top: 0%;
+    width: 100%;
+    z-index: 100;
+    height: 12%;
 }
 
-/*
+.contacto {
+    display: flex;
+    flex-direction: row;
+}
+
+
 .inpu button {
     width: 50px;
 }
@@ -44,6 +53,9 @@
 .mensajeinput {
     display: flex;
     flex-direction: column;
-}*/
+}
 
-
+.content {
+    display: flex;
+    flex-direction: column;
+}

@@ -26,7 +26,7 @@ export default function chat(){
     return(
         <>   
             <div className={styles.content}>      
-                <div className={styles.contacto}>
+                <div className={styles.contactol}>
                     <ButtonF
                         className={styles.botonf}
                         text={"<"}
@@ -46,7 +46,7 @@ export default function chat(){
                         <Mensajito
                             className={styles.mensaje}
                             mail={"towa@gmail.com"}
-                            text={"100 novias, hakari hanazono, inda karane, shizuka yoshimoto, nano eiai, kusuri yakuzen, hahari hanazono, kurumi haraga, mei meido, iku sutou, mimimi, meme kakure, chiyo lin, nadeshiko yamato"}
+                            text={"100 novias, hakari hanazono, inda karane, shizuka yoshimoto, nano eiai, kusuri yakuzen, hahari hanazono, kurumi haraga, mei meido, iku sutou, mimimi, meme kakure, chiyo lin, nadeshiko yamato, yasashiki yamame, momiji momi, 100 novias, hakari hanazono, inda karane, shizuka yoshimoto, nano eiai, kusuri yakuzen, hahari hanazono, kurumi haraga, mei meido, iku sutou, mimimi, meme kakure, chiyo lin, nadeshiko yamato, yasashiki yamame, momiji momi, 100 novias, hakari hanazono, inda karane, shizuka yoshimoto, nano eiai, kusuri yakuzen, hahari hanazono, kurumi haraga, mei meido, iku sutou, mimimi, meme kakure, chiyo lin, nadeshiko yamato, yasashiki yamame, momiji momi, 100 novias, hakari hanazono, inda karane, shizuka yoshimoto, nano eiai, kusuri yakuzen, hahari hanazono, kurumi haraga, mei meido, iku sutou, mimimi, meme kakure, chiyo lin, nadeshiko yamato, yasashiki yamame, momiji momi, hakari hanazono, inda karane, shizuka yoshimoto, nano eiai, kusuri yakuzen, hahari hanazono, kurumi haraga, mei meido, iku sutou, mimimi, meme kakure, chiyo lin, nadeshiko yamato, yasashiki yamame, momiji momi, 100 novias, hakari hanazono, inda karane, shizuka yoshimoto, nano eiai, kusuri yakuzen, hahari hanazono, kurumi haraga, mei meido, iku sutou, mimimi, meme kakure, chiyo lin, nadeshiko yamato, yasashiki yamame, momiji momi, 100 novias, hakari hanazono, inda karane, shizuka yoshimoto, nano eiai, kusuri yakuzen, hahari hanazono, kurumi haraga, mei meido, iku sutou, mimimi, meme kakure, chiyo lin, nadeshiko yamato, yasashiki yamame, momiji momi, 100 novias, hakari hanazono, inda karane, shizuka yoshimoto, nano eiai, kusuri yakuzen, hahari hanazono, kurumi haraga, mei meido, iku sutou, mimimi, meme kakure, chiyo lin, nadeshiko yamato, yasashiki yamame, momiji momi,"}
                         ></Mensajito>
                         <InputM
                             className={styles.inpu}
