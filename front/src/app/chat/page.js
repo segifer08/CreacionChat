@@ -1,7 +1,9 @@
 "use client"
 
 import ContactoR from "@/components/ContactoR"
+
 import Mensaje from "@/components/Mensaje"
+
 import InputM from "@/components/InputM"
 import { useSocket } from "@/hooks/useSocket"
 import { useRouter } from "next/navigation"
@@ -119,38 +121,46 @@ export default function chat() {
 
     return (
         <>
-            {chat.length != 0 && chat[0].Es_Grupo == true && chat[0].Imagen == null &&
-                <ContactoR
-                    onClick={moverse}
-                    id={chat[0].Id_Chat}
-                    url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}
-                    mail={chat[0].Nombre}
-                ></ContactoR>
+          <div className={styles.content}>
+            <div className={styles.contactol}>
+                          <ButtonF
+                              className={styles.botonf}
+                              text={"<"}>
+                          </ButtonF>
+                  {chat.length != 0 && chat[0].Es_Grupo == true && chat[0].Imagen == null &&
+                      <ContactoR
+                          onClick={moverse}
+                          id={chat[0].Id_Chat}
+                          url={"https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg"}
+                          mail={chat[0].Nombre}
+                      ></ContactoR>
+                  }
+                  {chat.length != 0 && chat[0].Es_Grupo == false && chat[0].Imagen == null &&
+                      <ContactoR
+                          onClick={moverse}
+                          id={chat[0].Id_Chat}
+                          url={"https://upload.wikimedia.org/wikipedia/en/4/42/Master_chief_halo_infinite.png"}
+                          mail={chat[0].Nombre}
+                      ></ContactoR>
+                  }
+                  {chat.length != 0 && chat[0].Es_Grupo == true && chat[0].Imagen != null &&
+                      <ContactoR
+                          className={styles.contacto}
+                          onClick={moverse}
+                          id={chat[0].Id_Chat}
+                          url={chat[0].Imagen}
+                          mail={chat[0].Nombre}
+                      ></ContactoR>
+                  }
+                  {chat.length != 0 && chat[0].Es_Grupo == false && chat[0].Imagen != null &&
+                      <ContactoR
+                          onClick={moverse}
+                          id={chat[0].Id_Chat}
+                          url={chat[0].Imagen}
+                          mail={chat[0].Nombre}
+                      ></ContactoR>
             }
-            {chat.length != 0 && chat[0].Es_Grupo == false && chat[0].Imagen == null &&
-                <ContactoR
-                    onClick={moverse}
-                    id={chat[0].Id_Chat}
-                    url={"https://upload.wikimedia.org/wikipedia/en/4/42/Master_chief_halo_infinite.png"}
-                    mail={chat[0].Nombre}
-                ></ContactoR>
-            }
-            {chat.length != 0 && chat[0].Es_Grupo == true && chat[0].Imagen != null &&
-                <ContactoR
-                    onClick={moverse}
-                    id={chat[0].Id_Chat}
-                    url={chat[0].Imagen}
-                    mail={chat[0].Nombre}
-                ></ContactoR>
-            }
-            {chat.length != 0 && chat[0].Es_Grupo == false && chat[0].Imagen != null &&
-                <ContactoR
-                    onClick={moverse}
-                    id={chat[0].Id_Chat}
-                    url={chat[0].Imagen}
-                    mail={chat[0].Nombre}
-                ></ContactoR>
-            }
+            </div>
             {mnsajes.length != 0 && mnsajes.map(mensaje => {
                 return (
                     <Mensaje key={mensaje.id_mensaje} mail={mensaje.mail} text={mensaje.content}></Mensaje>
@@ -164,6 +174,7 @@ export default function chat() {
                 textb={"Enviar"}
             ></InputM>
             <Button text={"asda"} onClick={() => {console.log(mnsajes)}}></Button>
+          </div>
         </>
     )
 }
