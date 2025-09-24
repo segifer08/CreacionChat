@@ -40,11 +40,17 @@ export default function chat() {
     }
     function b(){
         //socket.emit("pingAll", { msg: "Funcaaaaaaa porfaaaaaaaaaaaa" });
-        socket.emit("sendMessage", { msg: message });
+        socket.emit("sendMessage", {
+            id_Chat: logued,
+            id_User: chatee,
+            content: message,
+            date_time: Date.now()
+        });
     }
 
     useEffect(()=>{
-        //socket.on("newMessage", (data) => {console.log(data)})
+        if (!socket) return;
+        socket.on("newMessage", (data) => {console.log(data)})
         //console.log("isConnected:", isConnected)
     }, [isConnected]);
 
