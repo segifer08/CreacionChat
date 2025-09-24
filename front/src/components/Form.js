@@ -15,6 +15,9 @@ export default function Form(props) {
                 <Input type={props.type2} onChange={props.onChange2} value={props.value2}></Input>
                 <br></br>
                 <Button text={props.textb} onClick={props.onClick}></Button>
+                <br></br>
+                <br></br>
+                <Button text={props.text} onClick={props.mover}></Button>
             </div>
         </>
     )

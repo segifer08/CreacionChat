@@ -82,10 +82,9 @@ export default function Login(){
         onClick={loguea}
         type1={"text"}
         type2={"password"}
+        text={"No tengo cuenta"}
+        mover={moverse}
     ></Form>
-    <br></br>
-    <br></br>
-    <Button text={"No tengo cuenta"} onClick={moverse} className={styles.nocuenta}></Button>
     
     {
         /*props.login == true ? 

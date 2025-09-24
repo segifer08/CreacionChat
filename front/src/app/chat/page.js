@@ -173,7 +173,6 @@ export default function chat() {
                 onClick={placeholer}
                 textb={"Enviar"}
             ></InputM>
-            <Button text={"asda"} onClick={() => {console.log(mnsajes)}}></Button>
           </div>
         </>
     )
