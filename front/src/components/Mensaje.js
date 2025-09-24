@@ -1,6 +1,7 @@
-import styles from "@/components/Mensaje.module.css"
 
-export default function Mensajito(props) {
+import styles from "@/components/Mensaje.module.css"
+export default function Mensaje(props) {
+
     return (
         <>
             <div className={styles.mensaje}>
