@@ -15,12 +15,15 @@
     height: 50px;
     border-radius: 50px;
     border: solid #34513f;
+    background-color: white;
     color: #34513f;
     font-size: 20px;
-    margin-top: 37%;
-    transform: translate(5%);
+    margin-bottom: 10px;
+    margin-left: 4%;
+    position: fixed;
+    bottom: 0;
 }
 
 .boton2 {
-    transform: translate(5%);
+  color: #34513f;
 }
