@@ -1,26 +1,31 @@
 "use client"
 
+/* Usuario pruebas
+toplovetowa@gmail.com
+TowaLove0909
+*/
+
 import ContactoR from "@/components/ContactoR"
 
 import Mensaje from "@/components/Mensaje"
 
 import InputM from "@/components/InputM"
-import { useSocket } from "@/hooks/useSocket"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import styles from "@/app/chat/chat.module.css"
 import ButtonF from "@/components/ButtonF"
 import Button from "@/components/Button"
+import { useSocket } from "@/hooks/useSocket"
 
 export default function chat() {
+    const loguedUser = localStorage.getItem("loguedUser")
+    const selectedChat = localStorage.getItem("selectedChat")
     const [message, setMessage] = useState("");
     const [logued, setLogued] = useState(0)
     const [chatee, setChatee] = useState(0)
     const [chat, setChat] = useState([]);
     const [mnsajes, setMnsajes] = useState([]);
-    const [linkedin, setLinkedin] = useState("");
-    const [malquinequi, setMalquinequi] = useState("");
-    const { socket, isConnected } = useSocket()
+    const {isConnected, socket} = useSocket();
     const router = useRouter()
 
     useEffect(() => {
@@ -30,19 +35,36 @@ export default function chat() {
         setChatee(parseInt(selectedChat))
         chatData(selectedChat)
         Msj(selectedChat)
-    }, [])
+        console.log("socket:", socket)
+    }, []);
 
-    /* 
-    useEffect(()=>{
-         socket.on("newMessage", (data) => {console.log(data)})
-    }, [])
-    
-    useEffect(()=>{
-         socket.emit("joinRoom", {room: "pio"})
-    }, [socket])
+    function a(){
+        socket.emit("joinRoom", {room: `chat ${selectedChat}`})
+    }
+    function b(){
+        //socket.emit("pingAll", { msg: "Funcaaaaaaa porfaaaaaaaaaaaa" });
+        const time = Date.now();
+        const date = new Date(time);
+        const currentDate = date.toISOString();
+        const fechaMySQL = currentDate.slice(0, 19).replace('T', ' ');
 
-        
-    */
+        socket.emit("sendMessage", {
+            id_Chat: chatee,
+            id_User: logued,
+            content: message,
+            date_time: fechaMySQL
+        });
+
+    }
+
+    useEffect(()=>{
+        if (!socket) return;
+        socket.on("newMessage", (data) => {
+            console.log(data)
+            Msj(selectedChat)}
+            )
+        //console.log("isConnected:", isConnected)
+    }, [isConnected]);
 
     /*ACA VA UN FETCH*/
 
@@ -115,8 +137,9 @@ export default function chat() {
         router.push("../perfil")
     }
 
-    function placeholer() {
-        console.log("61L")
+    function corrobao(event){
+        setMessage(event.target.value)
+        console.log(message)
     }
 
     return (
@@ -169,11 +192,13 @@ export default function chat() {
             }
             <InputM
                 className={styles.inpu}
+                onChange={corrobao}
+                value={message}
                 text={"text"}
-                onClick={placeholer}
+                onClick={b}
                 textb={"Enviar"}
             ></InputM>
-            <Button text={"asda"} onClick={() => {console.log(mnsajes)}}></Button>
+            <Button text={"asda"} onClick={a}></Button>
           </div>
         </>
     )

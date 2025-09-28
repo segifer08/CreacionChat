@@ -66,7 +66,9 @@ socket.on('pingAll', data => {
 });
 
 socket.on('sendMessage', data => {
+    console.log(data)
     io.to(req.session.room).emit('newMessage', { room: req.session.room, message: data });
+    realizarQuery(`INSERT INTO Mensajes (id_Chat, id_Usuario, content, date_time) VALUES(${data.id_Chat}, ${data.id_User}, "${data.content}", "${data.date_time}")`)
 });
 
 socket.on('disconnect', () => {
