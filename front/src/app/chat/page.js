@@ -16,6 +16,8 @@ import Button from "@/components/Button"
 import { useSocket } from "@/hooks/useSocket"
 
 export default function chat() {
+    const loguedUser = localStorage.getItem("loguedUser")
+    const selectedChat = localStorage.getItem("selectedChat")
     const [message, setMessage] = useState("");
     const [logued, setLogued] = useState(0)
     const [chatee, setChatee] = useState(0)
@@ -32,25 +34,33 @@ export default function chat() {
         chatData(selectedChat)
         Msj(selectedChat)
         console.log("socket:", socket)
-        //socket.emit("joinRoom", {room: "pio"})
     }, []);
 
     function a(){
-        socket.emit("joinRoom", {room: "pio"})
+        socket.emit("joinRoom", {room: `chat ${selectedChat}`})
     }
     function b(){
         //socket.emit("pingAll", { msg: "Funcaaaaaaa porfaaaaaaaaaaaa" });
+        const time = Date.now();
+        const date = new Date(time);
+        const currentDate = date.toISOString();
+        const fechaMySQL = currentDate.slice(0, 19).replace('T', ' ');
+
         socket.emit("sendMessage", {
-            id_Chat: logued,
-            id_User: chatee,
+            id_Chat: chatee,
+            id_User: logued,
             content: message,
-            date_time: Date.now()
+            date_time: fechaMySQL
         });
+
     }
 
     useEffect(()=>{
         if (!socket) return;
-        socket.on("newMessage", (data) => {console.log(data)})
+        socket.on("newMessage", (data) => {
+            console.log(data)
+            Msj(selectedChat)}
+            )
         //console.log("isConnected:", isConnected)
     }, [isConnected]);
 
