@@ -216,3 +216,34 @@ app.post('/mensajes',async function(req,res){
         res.send({validar:false})
     }
 })
+
+app.post('/ultimoMensaje',async function(req,res){
+    try {
+        console.log(req.body);
+        let vector = await realizarQuery(`SELECT * FROM Mensajes WHERE Id_chat = ${req.body.id} ORDER BY id_M DESC LIMIT 1`)
+        let email = []
+        let respuesta = []
+        if(vector.length != 0){
+            for(let i=0;i < vector.length; i++){
+                email = await realizarQuery(`SELECT Mail FROM Usuarios WHERE Id_Usuario = ${vector[i].id_Usuario}`)
+                respuesta.push(
+                    {
+                        id_mensaje : vector[i].id_M,
+                        id_usuario: vector[i].id_Usuario,
+                        content: vector[i].content,
+                        mail : email[0].Mail,
+                        date : vector[i].date_time,
+                        id_chat: vector[i].id_Chat,
+                    }
+                )
+            }
+            res.send({validar:true, mensajes:respuesta})
+        }
+        else{
+            res.send({validar:false});
+        }
+    } catch (error) {
+        console.log(error)
+        res.send({validar:false})
+    }
+})
