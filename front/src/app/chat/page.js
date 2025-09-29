@@ -61,8 +61,10 @@ export default function chat() {
         if (!socket) return;
         socket.on("newMessage", (data) => {
             console.log(data)
-            Msj(selectedChat)}
-            )
+            //Msj(selectedChat)
+            UltMsj(selectedChat)
+            console.log(mnsajes)
+            })
         //console.log("isConnected:", isConnected)
     }, [isConnected]);
 
@@ -123,6 +125,38 @@ export default function chat() {
     }
 
     function Msj(chat) {
+        if (chat == undefined) {
+            return alert("Error, Faltan datos")
+        }
+        let datos = {
+            id: chat
+        }
+        traerMsj(datos)
+    }
+
+    function traerUltMsj(datos) {
+        fetch("http://localhost:4000/ultimoMensaje",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(datos)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                if (result.validar == true) {
+                    console.log(result.mensajes)
+                    mnsajes.push(result.mensajes)
+                } else {
+                    return alert("La Cagaste")
+                }
+            }
+            )
+    }
+
+    function UltMsj(chat) {
         if (chat == undefined) {
             return alert("Error, Faltan datos")
         }
