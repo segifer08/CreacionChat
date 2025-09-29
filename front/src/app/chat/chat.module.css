@@ -11,12 +11,12 @@
     background-color: white;
     border: solid #223336;
     border-radius: 50%;
-    transform: translate(-7vw, -0.4vw);
+    transform: translate(-8vw, -0.4vw);
 }
 
 .contactol h3 {
     color: #061b29;
-    transform: translate(6vw, -6vw);
+    transform: translate(7vw, -7vw);
 }
 
 .contactol {
