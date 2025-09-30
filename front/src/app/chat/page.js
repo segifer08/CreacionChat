@@ -14,13 +14,12 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import styles from "@/app/chat/chat.module.css"
 import ButtonF from "@/components/ButtonF"
-import Button from "@/components/Button"
 import { useSocket } from "@/hooks/useSocket"
 
 export default function chat() {
     const loguedUser = localStorage.getItem("loguedUser")
     const selectedChat = localStorage.getItem("selectedChat")
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState([]);
     const [logued, setLogued] = useState(0)
     const [chatee, setChatee] = useState(0)
     const [chat, setChat] = useState([]);
@@ -30,43 +29,51 @@ export default function chat() {
 
     useEffect(() => {
         const loguedUser = localStorage.getItem("loguedUser")
-        const selectedChat = localStorage.getItem("selectedChat")
+        //const selectedChat = localStorage.getItem("selectedChat")
         setLogued(parseInt(loguedUser))
         setChatee(parseInt(selectedChat))
         chatData(selectedChat)
         Msj(selectedChat)
         console.log("socket:", socket)
+        //socket.emit("joinRoom", {room: `chat ${selectedChat}`})
+        console.log(selectedChat)
     }, []);
 
-    function a(){
+    /*function a(){
         socket.emit("joinRoom", {room: `chat ${selectedChat}`})
-    }
+    }*/
     function b(){
         //socket.emit("pingAll", { msg: "Funcaaaaaaa porfaaaaaaaaaaaa" });
         const time = Date.now();
         const date = new Date(time);
         const currentDate = date.toISOString();
         const fechaMySQL = currentDate.slice(0, 19).replace('T', ' ');
-
-        socket.emit("sendMessage", {
-            id_Chat: chatee,
-            id_User: logued,
-            content: message,
-            date_time: fechaMySQL
-        });
+        const newMessage = {id_Chat: chatee, id_User: logued, content: message, date_time: fechaMySQL}
+        setMessage((prevMsg)=>{
+            return [...prevMsg,newMessage]
+        })
+        socket.emit("sendMessage", newMessage);
 
     }
 
     useEffect(()=>{
         if (!socket) return;
+        socket.on("connect", ()=>{
+            //corre una vez al conectar el socket con el back
+            socket.emit("joinRoom", {room: `chat ${selectedChat}`})
+
+        })
         socket.on("newMessage", (data) => {
             console.log(data)
             //Msj(selectedChat)
             UltMsj(selectedChat)
             console.log(mnsajes)
             })
-        //console.log("isConnected:", isConnected)
-    }, [isConnected]);
+    }, [socket]);
+
+    useEffect(()=>{
+        console.log("isConnected:", isConnected)
+    },[isConnected])
 
     /*ACA VA UN FETCH*/
 
@@ -232,7 +239,6 @@ export default function chat() {
                 onClick={b}
                 textb={"Enviar"}
             ></InputM>
-            <Button text={"asda"} onClick={a}></Button>
           </div>
         </>
     )
