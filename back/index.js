@@ -65,10 +65,18 @@ socket.on('pingAll', data => {
     io.emit('pingAll', { event: "Ping to all", message: data });
 });
 
-socket.on('sendMessage', data => {
-    console.log(data)
-    io.to(req.session.room).emit('newMessage', { room: req.session.room, message: data });
-    realizarQuery(`INSERT INTO Mensajes (id_Chat, id_Usuario, content, date_time) VALUES(${data.id_Chat}, ${data.id_User}, "${data.content}", "${data.date_time}")`)
+socket.on('sendMessage', async (data) => {
+    try {
+        console.log(data);
+        await realizarQuery(`INSERT INTO Mensajes (id_Chat, id_Usuario, content, date_time) VALUES(${data.id_Chat}, ${data.id_User}, "${data.content}", "${data.date_time}")`)
+        const result = await realizarQuery(`SELECT Mail FROM Usuarios WHERE Id_Usuario = ${data.id_User}`);
+        const mail = result.length > 0 && result[0].Mail
+        io.to(req.session.room).emit('newMessage', { room: req.session.room, message: {
+            ...data,
+            mail: mail} });
+    }catch (error) {
+        console.error("❌ Error al enviar mensaje:", err);
+    };
 });
 
 socket.on('disconnect', () => {

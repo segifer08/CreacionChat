@@ -14,13 +14,14 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import styles from "@/app/chat/chat.module.css"
 import ButtonF from "@/components/ButtonF"
-import Button from "@/components/Button"
 import { useSocket } from "@/hooks/useSocket"
 
 export default function chat() {
+    let i = 1000
     const loguedUser = localStorage.getItem("loguedUser")
     const selectedChat = localStorage.getItem("selectedChat")
-    const [message, setMessage] = useState("");
+    const [mensajito, setMensajito] = useState([]);
+    const [message, setMessage] = useState([]);
     const [logued, setLogued] = useState(0)
     const [chatee, setChatee] = useState(0)
     const [chat, setChat] = useState([]);
@@ -36,37 +37,57 @@ export default function chat() {
         chatData(selectedChat)
         Msj(selectedChat)
         console.log("socket:", socket)
+        //socket.emit("joinRoom", {room: `chat ${selectedChat}`})
+        console.log(selectedChat)
     }, []);
 
-    function a(){
+    /*function a(){
         socket.emit("joinRoom", {room: `chat ${selectedChat}`})
-    }
+    }*/
     function b(){
         //socket.emit("pingAll", { msg: "Funcaaaaaaa porfaaaaaaaaaaaa" });
         const time = Date.now();
         const date = new Date(time);
         const currentDate = date.toISOString();
         const fechaMySQL = currentDate.slice(0, 19).replace('T', ' ');
-
-        socket.emit("sendMessage", {
-            id_Chat: chatee,
-            id_User: logued,
-            content: message,
-            date_time: fechaMySQL
-        });
+        const newMessage = {id_Chat: chatee, id_User: logued, content: mensajito, date_time: fechaMySQL}
+        console.log(newMessage)
+        setMessage((prevMsg)=>{
+            return [...prevMsg,newMessage]
+        })
+        socket.emit("sendMessage", newMessage);
+        setMensajito("")
 
     }
 
     useEffect(()=>{
         if (!socket) return;
+        socket.on("connect", ()=>{
+            //corre una vez al conectar el socket con el back
+            socket.emit("joinRoom", {room: `chat ${selectedChat}`})
+
+        })
         socket.on("newMessage", (data) => {
+            console.log("Hola; hasta aca llegue")
             console.log(data)
-            //Msj(selectedChat)
-            UltMsj(selectedChat)
+            /*Msj(selectedChat)
+            UltMsj(selectedChat)*/
+            const nuevoMensaje = data.message;
+            setMnsajes(prev => [...prev, {
+                id_mensaje: i+1,
+                id_usuario: nuevoMensaje.id_User,
+                content: nuevoMensaje.content,
+                mail: nuevoMensaje.mail,
+                date: nuevoMensaje.date_time,
+                id_chat: nuevoMensaje.id_Chat
+            }]);
+            });
             console.log(mnsajes)
-            })
-        //console.log("isConnected:", isConnected)
-    }, [isConnected]);
+    }, [socket]);
+
+    useEffect(()=>{
+        console.log("isConnected:", isConnected)
+    },[isConnected])
 
     /*ACA VA UN FETCH*/
 
@@ -102,7 +123,7 @@ export default function chat() {
         traerChat(datos)
     }
 
-     function traerMsj(datos) {
+    function traerMsj(datos) {
         fetch("http://localhost:4000/mensajes",
             {
                 method: "POST",
@@ -134,46 +155,13 @@ export default function chat() {
         traerMsj(datos)
     }
 
-    function traerUltMsj(datos) {
-        fetch("http://localhost:4000/ultimoMensaje",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(datos)
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.validar == true) {
-                    console.log(result.mensajes)
-                    mnsajes.push(result.mensajes)
-                } else {
-                    return alert("La Cagaste")
-                }
-            }
-            )
-    }
-
-    function UltMsj(chat) {
-        if (chat == undefined) {
-            return alert("Error, Faltan datos")
-        }
-        let datos = {
-            id: chat
-        }
-        traerMsj(datos)
-    }
-
-
     function moverse() {
         router.push("../perfil")
     }
 
     function corrobao(event){
-        setMessage(event.target.value)
-        console.log(message)
+        setMensajito(event.target.value)
+        console.log(mensajito)
     }
 
     return (
@@ -227,12 +215,11 @@ export default function chat() {
             <InputM
                 className={styles.inpu}
                 onChange={corrobao}
-                value={message}
+                value={mensajito}
                 text={"text"}
                 onClick={b}
                 textb={"Enviar"}
             ></InputM>
-            <Button text={"asda"} onClick={a}></Button>
           </div>
         </>
     )
