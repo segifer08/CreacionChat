@@ -17,8 +17,10 @@ import ButtonF from "@/components/ButtonF"
 import { useSocket } from "@/hooks/useSocket"
 
 export default function chat() {
+    let i = 1000
     const loguedUser = localStorage.getItem("loguedUser")
     const selectedChat = localStorage.getItem("selectedChat")
+    const [mensajito, setMensajito] = useState([]);
     const [message, setMessage] = useState([]);
     const [logued, setLogued] = useState(0)
     const [chatee, setChatee] = useState(0)
@@ -29,9 +31,10 @@ export default function chat() {
 
     useEffect(() => {
         const loguedUser = localStorage.getItem("loguedUser")
-        //const selectedChat = localStorage.getItem("selectedChat")
+        const selectedChat = localStorage.getItem("selectedChat")
         setLogued(parseInt(loguedUser))
         setChatee(parseInt(selectedChat))
+        maail(loguedUser)
         chatData(selectedChat)
         Msj(selectedChat)
         console.log("socket:", socket)
@@ -48,11 +51,13 @@ export default function chat() {
         const date = new Date(time);
         const currentDate = date.toISOString();
         const fechaMySQL = currentDate.slice(0, 19).replace('T', ' ');
-        const newMessage = {id_Chat: chatee, id_User: logued, content: message, date_time: fechaMySQL}
+        const newMessage = {id_Chat: chatee, id_User: logued, content: mensajito, date_time: fechaMySQL}
+        console.log(newMessage)
         setMessage((prevMsg)=>{
             return [...prevMsg,newMessage]
         })
         socket.emit("sendMessage", newMessage);
+        setMensajito("")
 
     }
 
@@ -64,11 +69,21 @@ export default function chat() {
 
         })
         socket.on("newMessage", (data) => {
+            console.log("Hola; hasta aca llegue")
             console.log(data)
-            //Msj(selectedChat)
-            UltMsj(selectedChat)
+            /*Msj(selectedChat)
+            UltMsj(selectedChat)*/
+            const nuevoMensaje = data.message;
+            setMnsajes(prev => [...prev, {
+                id_mensaje: i+1,
+                id_usuario: nuevoMensaje.id_User,
+                content: nuevoMensaje.content,
+                mail: nuevoMensaje.mail,
+                date: nuevoMensaje.date_time,
+                id_chat: nuevoMensaje.id_Chat
+            }]);
+            });
             console.log(mnsajes)
-            })
     }, [socket]);
 
     useEffect(()=>{
@@ -109,7 +124,7 @@ export default function chat() {
         traerChat(datos)
     }
 
-     function traerMsj(datos) {
+    function traerMsj(datos) {
         fetch("http://localhost:4000/mensajes",
             {
                 method: "POST",
@@ -141,46 +156,13 @@ export default function chat() {
         traerMsj(datos)
     }
 
-    function traerUltMsj(datos) {
-        fetch("http://localhost:4000/ultimoMensaje",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(datos)
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.validar == true) {
-                    console.log(result.mensajes)
-                    mnsajes.push(result.mensajes)
-                } else {
-                    return alert("La Cagaste")
-                }
-            }
-            )
-    }
-
-    function UltMsj(chat) {
-        if (chat == undefined) {
-            return alert("Error, Faltan datos")
-        }
-        let datos = {
-            id: chat
-        }
-        traerMsj(datos)
-    }
-
-
     function moverse() {
         router.push("../perfil")
     }
 
     function corrobao(event){
-        setMessage(event.target.value)
-        console.log(message)
+        setMensajito(event.target.value)
+        console.log(mensajito)
     }
 
     return (
@@ -234,7 +216,7 @@ export default function chat() {
             <InputM
                 className={styles.inpu}
                 onChange={corrobao}
-                value={message}
+                value={mensajito}
                 text={"text"}
                 onClick={b}
                 textb={"Enviar"}
