@@ -34,7 +34,6 @@ export default function chat() {
         const selectedChat = localStorage.getItem("selectedChat")
         setLogued(parseInt(loguedUser))
         setChatee(parseInt(selectedChat))
-        maail(loguedUser)
         chatData(selectedChat)
         Msj(selectedChat)
         console.log("socket:", socket)
