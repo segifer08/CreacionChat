@@ -65,8 +65,18 @@ socket.on('pingAll', data => {
     io.emit('pingAll', { event: "Ping to all", message: data });
 });
 
-socket.on('sendMessage', data => {
-    io.to(req.session.room).emit('newMessage', { room: req.session.room, message: data });
+socket.on('sendMessage', async (data) => {
+    try {
+        console.log(data);
+        await realizarQuery(`INSERT INTO Mensajes (id_Chat, id_Usuario, content, date_time) VALUES(${data.id_Chat}, ${data.id_User}, "${data.content}", "${data.date_time}")`)
+        const result = await realizarQuery(`SELECT Mail FROM Usuarios WHERE Id_Usuario = ${data.id_User}`);
+        const mail = result.length > 0 && result[0].Mail
+        io.to(req.session.room).emit('newMessage', { room: req.session.room, message: {
+            ...data,
+            mail: mail} });
+    }catch (error) {
+        console.error("❌ Error al enviar mensaje:", err);
+    };
 });
 
 socket.on('disconnect', () => {
@@ -188,6 +198,37 @@ app.post('/mensajes',async function(req,res){
     try {
         console.log(req.body);
         let vector = await realizarQuery(`SELECT * FROM Mensajes WHERE Id_chat = ${req.body.id}`)
+        let email = []
+        let respuesta = []
+        if(vector.length != 0){
+            for(let i=0;i < vector.length; i++){
+                email = await realizarQuery(`SELECT Mail FROM Usuarios WHERE Id_Usuario = ${vector[i].id_Usuario}`)
+                respuesta.push(
+                    {
+                        id_mensaje : vector[i].id_M,
+                        id_usuario: vector[i].id_Usuario,
+                        content: vector[i].content,
+                        mail : email[0].Mail,
+                        date : vector[i].date_time,
+                        id_chat: vector[i].id_Chat,
+                    }
+                )
+            }
+            res.send({validar:true, mensajes:respuesta})
+        }
+        else{
+            res.send({validar:false});
+        }
+    } catch (error) {
+        console.log(error)
+        res.send({validar:false})
+    }
+})
+
+app.post('/ultimoMensaje',async function(req,res){
+    try {
+        console.log(req.body);
+        let vector = await realizarQuery(`SELECT * FROM Mensajes WHERE Id_chat = ${req.body.id} ORDER BY id_M DESC LIMIT 1`)
         let email = []
         let respuesta = []
         if(vector.length != 0){

@@ -1,5 +1,5 @@
 import styles from "@/components/MensajeI.module.css"
-export default function Mensaje(props) {
+export default function MensajeI(props) {
 
     return (
         <>
