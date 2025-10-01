@@ -15,6 +15,7 @@ import { useEffect, useState } from "react"
 import styles from "@/app/chat/chat.module.css"
 import ButtonF from "@/components/ButtonF"
 import { useSocket } from "@/hooks/useSocket"
+import MensajeI from "@/components/MensajeI"
 
 export default function chat() {
     let i = 1000
@@ -159,6 +160,10 @@ export default function chat() {
         router.push("../perfil")
     }
 
+    function patra() {
+        router.push("../listaC")
+    }
+
     function corrobao(event){
         setMensajito(event.target.value)
         console.log(mensajito)
@@ -170,7 +175,8 @@ export default function chat() {
             <div className={styles.contactol}>
                           <ButtonF
                               className={styles.botonf}
-                              text={"<"}>
+                              text={"<"}
+                              onClick={patra}>
                           </ButtonF>
                   {chat.length != 0 && chat[0].Es_Grupo == true && chat[0].Imagen == null &&
                       <ContactoR
@@ -206,11 +212,14 @@ export default function chat() {
                       ></ContactoR>
             }
             </div>
-            {mnsajes.length != 0 && mnsajes.map(mensaje => {
-                return (
-                    <Mensaje key={mensaje.id_mensaje} mail={mensaje.mail} text={mensaje.content}></Mensaje>
-                )
-            })
+            {mnsajes.length != 0 && mnsajes.map(mensaje => (
+                
+                mensaje.id_usuario == loguedUser ?
+                    (<Mensaje key={mensaje.id_mensaje} mail="Tú" text={mensaje.content}></Mensaje>)
+                    :
+                    (<MensajeI key={mensaje.id_mensaje} mail={mensaje.mail} text={mensaje.content}> </MensajeI>)
+
+            ))
             }
             <InputM
                 className={styles.inpu}
