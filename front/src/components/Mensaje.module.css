@@ -11,8 +11,8 @@
     max-width: 35%;
     margin-left: 1%;
     border-radius: 50px;
-    border-bottom-left-radius: 0;
-    transform: translate(3%, 7vw);
+    border-bottom-right-radius: 0;
+    transform: translate(61.5vw, 7vw);
     margin-bottom: 12vw;
 }
 

@@ -7,11 +7,11 @@
 }
 
 .mensaje {
-    background-color: #80d685;
+    background-color: #9ed4ae;
     max-width: 35%;
     margin-left: 1%;
     border-radius: 50px;
-    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
     transform: translate(3%, 7vw);
     margin-bottom: 12vw;
 }
