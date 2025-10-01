@@ -1,7 +1,9 @@
-# Tips para un Seba del futuro: (Escrito x Seba del 16/9/2025)
+# Trabajo Practico Creacion de Chat 2025 (Proy Prod y Desarrollo Apps)
 
-## Para inicializar socket correctamente es necesario esto:
-### *Back*:
+## Hecho por:
+### -*Paula Chong*
+### -*Morena Vega*
+### -*Gianfranco Pallavicini*
+### -*Sebastian Gil Fernández*
 
-
-### *Front*:
+Gracias x leer y disfruten de la app :)
