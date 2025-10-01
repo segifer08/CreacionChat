@@ -3,15 +3,15 @@
     padding: 15px;
     padding-left: 30px;
     padding-top: 5px;
-    color: #91ad6e;
+    color: #223336;
 }
 
 .mensaje {
-    background-color: #34513f;
+    background-color: #80d685;
     max-width: 35%;
     margin-left: 1%;
     border-radius: 50px;
-    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     transform: translate(3%, 7vw);
     margin-bottom: 12vw;
 }
@@ -20,5 +20,5 @@
     padding-top: 15px;
     padding-left: 30px;
     font-size: 25px;
-    color: #091100;
+    color: #223336;
 }
