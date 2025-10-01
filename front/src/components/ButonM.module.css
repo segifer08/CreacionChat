@@ -30,4 +30,5 @@
 .buttonm:hover {
   background-color: #223336;
   color: #91ad6e;
+  border: solid #223336;
 }
