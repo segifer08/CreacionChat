@@ -5,18 +5,18 @@
 }*/
 
 .contactol img {
-    width: 70px;
-    height: 70px;
+    width: 4vw;
+    height: 4vw;
     margin: 20px;
     background-color: white;
     border: solid #223336;
     border-radius: 50%;
-    transform: translate(-8vw, -0.4vw);
+    transform: translate(-12vw, -0.8vw);
 }
 
 .contactol h3 {
     color: #061b29;
-    transform: translate(7vw, -7vw);
+    transform: translate(6vw, -8vw);
 }
 
 .contactol {
