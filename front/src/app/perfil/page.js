@@ -2,6 +2,7 @@
 
 import ButtonF from "@/components/ButtonF"
 import ContactoG from "@/components/ContactoG"
+import styles from "@/app/perfil/perfil.module.css"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
@@ -106,13 +107,15 @@ export default function perfil(){
 
     return(
         <>
-            <ButtonF
-            text={"<"}
-            onClick={moverse}></ButtonF>
-            <ContactoG
-                url={linkedin}
-                mail={malquinequi}
-            ></ContactoG>
+            <div className={styles. divos}>
+                <ButtonF
+                text={"<"}
+                onClick={moverse}></ButtonF>
+                <ContactoG
+                    url={linkedin}
+                    mail={malquinequi}
+                ></ContactoG>
+            </div>
         </>
     )
 }
