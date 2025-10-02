@@ -1,20 +1,26 @@
 "use client"
 
+import ButtonF from "@/components/ButtonF"
 import ContactoG from "@/components/ContactoG"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function perfil(){
     let loguedUser = localStorage.getItem("loguedUser")
-    const [logued, setLogued] = useState(loguedUser)
+    const selectedChat = localStorage.getItem("selectedChat")
+    const router = useRouter()
+    const [logued, setLogued] = useState(null)
+    const [chatee, setChatee] = useState(null)
     const [linkedin, setLinkedin] = useState(null)
     const [malquinequi, setMalquinequi] = useState("")
     const [cambiazo, setCambiazo] = useState("")
 
     useEffect(()=>{
         const loguedUser = localStorage.getItem("loguedUser")
-        setLogued(loguedUser)
-        console.log(logued);
-        perfilado()
+        const selectedChat = localStorage.getItem("selectedChat")
+        setChatee(parseInt(selectedChat))
+        console.log(selectedChat);
+        perfilado(selectedChat)
       }, [])
     /*ACA VA UN FETCH*/
     function perfil(datos){
@@ -28,13 +34,15 @@ export default function perfil(){
         .then(response => response.json())
         .then(result =>{
             if (result.validar == true){
-                console.log(result.usuario)
-                setLinkedin(result.usuario[0].imagen)
-                console.log(linkedin)
-                if(linkedin == null){
+                console.log(result.chat)
+                setLinkedin(result.chat[0].Imagen)
+                console.log(result.chat[0].Es_Grupo)
+                if(linkedin == null && result.chat[0].Es_Grupo == true){
                     setLinkedin("https://9to5google.com/wp-content/uploads/sites/4/2024/08/Gemini-Advanced-Imagen-3-1.jpg")
+                } else if (linkedin == null && result.chat[0].Es_Grupo == false){
+                    setLinkedin("https://upload.wikimedia.org/wikipedia/en/4/42/Master_chief_halo_infinite.png")
                 }
-                setMalquinequi(result.usuario[0].Mail)
+                setMalquinequi(result.chat[0].Nombre)
             } else {
                 return alert("La Cagaste")
             }
@@ -42,13 +50,13 @@ export default function perfil(){
         )
   }
 
-    function perfilado() {
-        if(logued == undefined){
+    function perfilado(chat) {
+        if(chat == undefined){
             return alert("Error Faltan datos")
         }
-        console.log(logued)
+        console.log()
         let datos = {
-            id: logued
+            id: chat
         } 
         perfil(datos)
     }
@@ -98,12 +106,10 @@ export default function perfil(){
 
     return(
         <>
+            <ButtonF
+            text={"<"}
+            onClick={moverse}></ButtonF>
             <ContactoG
-                type={"text"}
-                onChange={corrobao}
-                value={cambiazo}
-                text={"Cambiar Imagen?"}
-                onClick={cambio}
                 url={linkedin}
                 mail={malquinequi}
             ></ContactoG>

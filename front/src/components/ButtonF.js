@@ -1,7 +1,7 @@
 "use client"
 
 import styles from "@/components/ButtonF.module.css"
-export default function Button(props) {
+export default function ButtonF(props) {
 
     return (
         <>

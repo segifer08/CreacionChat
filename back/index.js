@@ -130,9 +130,10 @@ app.post('/registro',async function(req,res){
 app.post('/perfil',async function(req,res){
     try {
         console.log(req.body);
-        let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Id_usuario = ${req.body.id}`)
+        let vector = await realizarQuery(`SELECT * FROM Chats WHERE Id_chat = ${req.body.id}`)
         if(vector.length != 0){
-            res.send({validar:true, usuario:vector})
+            console.log(vector)
+            res.send({validar:true, chat:vector})
         }
         else{
             res.send({validar:false});
